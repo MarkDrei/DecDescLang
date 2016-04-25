@@ -1,1 +1,1 @@
-# DecDescLang
+# Decision Description Language
