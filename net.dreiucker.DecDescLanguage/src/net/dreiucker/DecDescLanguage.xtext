@@ -1,0 +1,120 @@
+grammar net.dreiucker.DecDescLanguage with org.eclipse.xtext.common.Terminals
+
+generate decDescLanguage "http://www.dreiucker.net/DecDescLanguage"
+
+Model:
+	definitions += Definition*
+;
+
+Definition:
+	(SolutionsDefinitionBlock | Assumptions | Constraints | Person | Decision)
+;
+	
+Decision:
+	'Decision' name = ID '{'
+		// Describes the issue / the motivation
+		// Clarify why it needs to be addressed.
+		'Issue:' issue = STRING
+		// State of the decision
+		'Status:' status = Status
+		// The position that was selected
+		'Solution:' solution = SolutionDecision
+		
+		// The rest remains unordered and optional
+		(
+			// Alternatives are just solutions that have not been chosen
+			('Alternatives:' alternatives = AlternativesBlock)? &
+			// Assumptions about the environment, which were driving the 
+			// the decision
+			('Assumptions:' assumptions = AbstractAssumptions)? &
+			// Constraints from the environment, which may rationalize
+			// the decision
+			('Constraints:' constraints = AbstractConstraints)? &
+			// The person who is responsible for the decision
+			('Owner:' owner = AbstractPerson)?
+		)
+		
+	'}';
+
+
+// This is an enum
+Status: 
+	DECIDED  = 'decided'  |
+	APPROVED = 'approved' |
+	PENDING  = 'pending'  |
+	DECLINED = 'declined'
+;
+
+////////////////////////////////////////////////////////////////////////////
+// Assumptions
+////////////////////////////////////////////////////////////////////////////
+
+Assumptions:
+	('Assumption') AbstractAssumptions
+;
+
+AbstractAssumptions: AbstractAssumption | '{'
+		(assumptions += AbstractAssumption)+
+	'}';
+
+AbstractAssumption: assumption = [Assumption] | Assumption; 
+
+Assumption: (name = ID ':')? assumptionText = STRING;
+
+////////////////////////////////////////////////////////////////////////////
+// Constraints
+////////////////////////////////////////////////////////////////////////////
+
+Constraints: 
+	('Constraint') AbstractConstraints;
+	
+AbstractConstraints: AbstractConstraint | '{'
+		(constraints += AbstractConstraint)+
+	'}'
+;
+
+AbstractConstraint: constraint = [Constraint] | Constraint;
+
+Constraint: (name = ID ':')? constraintText = STRING;
+
+////////////////////////////////////////////////////////////////////////////
+// Solutions, Alternatives
+////////////////////////////////////////////////////////////////////////////
+
+SolutionsDefinitionBlock:
+	('Solution') AbstractSolutions;
+	
+AbstractSolutions: AbstractSolution | '{' 
+		(solutions += AbstractSolution)+
+	'}';
+
+AbstractSolution: solution = [Solution] | Solution;
+
+Solution: (name = ID ':')? solutionText = STRING;
+
+SolutionDecision: solution = AbstractSolution (reason = Reasoning)?;
+
+Reasoning: 'reasoning' reason = STRING;
+
+AlternativesBlock: (alternative = SolutionDecision) | ('{'
+		(alternatives += SolutionDecision)+
+	'}')
+;
+
+////////////////////////////////////////////////////////////////////////////
+// People
+////////////////////////////////////////////////////////////////////////////
+
+AbstractPerson: person = [Person] | Person;
+
+Person:
+	'Person' name=ID '{'
+		'Name:' fullname = STRING
+		
+		// A unordered list of optional attributes of a person 
+		(
+			('Email:' email = STRING)? &
+			('Role:' role = STRING)?
+		)
+	'}'
+;

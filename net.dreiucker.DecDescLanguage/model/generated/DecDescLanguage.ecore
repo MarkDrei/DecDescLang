@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="decDescLanguage" nsURI="http://www.dreiucker.net/DecDescLanguage"
+    nsPrefix="decDescLanguage">
+  <eClassifiers xsi:type="ecore:EClass" name="Model">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definitions" upperBound="-1"
+        eType="#//Definition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Definition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Decision" eSuperTypes="#//Definition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="issue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="status" eType="#//Status"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="solution" eType="#//SolutionDecision"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="alternatives" eType="#//AlternativesBlock"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assumptions" eType="#//AbstractAssumptions"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" eType="#//AbstractConstraints"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//AbstractPerson"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Status">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DECIDED" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="APPROVED" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="PENDING" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DECLINED" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Assumptions" eSuperTypes="#//Definition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractAssumptions" eSuperTypes="#//Assumptions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assumptions" upperBound="-1"
+        eType="#//AbstractAssumption" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractAssumption" eSuperTypes="#//AbstractAssumptions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assumption" eType="#//Assumption"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Assumption" eSuperTypes="#//AbstractAssumption">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assumptionText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Constraints" eSuperTypes="#//Definition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractConstraints" eSuperTypes="#//Constraints">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" upperBound="-1"
+        eType="#//AbstractConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractConstraint" eSuperTypes="#//AbstractConstraints">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//Constraint"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//AbstractConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraintText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SolutionsDefinitionBlock" eSuperTypes="#//Definition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractSolutions" eSuperTypes="#//SolutionsDefinitionBlock">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="solutions" upperBound="-1"
+        eType="#//AbstractSolution" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractSolution" eSuperTypes="#//AbstractSolutions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="solution" eType="#//Solution"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Solution" eSuperTypes="#//AbstractSolution">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="solutionText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SolutionDecision">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="solution" eType="#//AbstractSolution"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reason" eType="#//Reasoning"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Reasoning">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reason" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AlternativesBlock">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="alternative" eType="#//SolutionDecision"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="alternatives" upperBound="-1"
+        eType="#//SolutionDecision" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractPerson">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="person" eType="#//Person"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Person" eSuperTypes="#//Definition #//AbstractPerson">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fullname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

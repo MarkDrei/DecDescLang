@@ -1,0 +1,109 @@
+Model Differences;;;;
+Left: platform:/resource/net.dreiucker.DecDescLanguage/model/generated/DecDescLanguage.ecore;;  ;Right: platform:/resource/net.dreiucker.DecDescLanguage/model/generated/DecDescLanguage.ecore;
+//Person;;<>;//Person;
+//AbstractPerson/person; [ADDED to AbstractPerson.eStructuralFeatures];+-;//AbstractPerson/person; [DELETED from .eStructuralFeatures]
+//SolutionDecision;;<>;//SolutionDecision;
+//SolutionDecision;;<>;//SolutionDecision;
+//AlternativesBlock/alternative; [ADDED to AlternativesBlock.eStructuralFeatures];+-;//AlternativesBlock/alternative; [DELETED from .eStructuralFeatures]
+//AlternativesBlock/alternatives; [ADDED to AlternativesBlock.eStructuralFeatures];+-;//AlternativesBlock/alternatives; [DELETED from .eStructuralFeatures]
+//AbstractSolution;;<>;//AbstractSolution;
+//Reasoning;;<>;//Reasoning;
+//SolutionDecision/solution; [ADDED to SolutionDecision.eStructuralFeatures];+-;//SolutionDecision/solution; [DELETED from .eStructuralFeatures]
+//SolutionDecision/reason; [ADDED to SolutionDecision.eStructuralFeatures];+-;//SolutionDecision/reason; [DELETED from .eStructuralFeatures]
+//Solution;;<>;//Solution;
+//AbstractSolutions; [ADDED to AbstractSolution.eSuperTypes];+-;//AbstractSolutions; [REMOVED from .eSuperTypes]
+//AbstractSolution/solution; [ADDED to AbstractSolution.eStructuralFeatures];+-;//AbstractSolution/solution; [DELETED from .eStructuralFeatures]
+//AbstractSolution;;<>;//AbstractSolution;
+//SolutionsDefinitionBlock; [ADDED to AbstractSolutions.eSuperTypes];+-;//SolutionsDefinitionBlock; [REMOVED from .eSuperTypes]
+//AbstractSolutions/solutions; [ADDED to AbstractSolutions.eStructuralFeatures];+-;//AbstractSolutions/solutions; [DELETED from .eStructuralFeatures]
+//Constraint;;<>;//Constraint;
+//AbstractConstraints; [ADDED to AbstractConstraint.eSuperTypes];+-;//AbstractConstraints; [REMOVED from .eSuperTypes]
+//AbstractConstraint/constraint; [ADDED to AbstractConstraint.eStructuralFeatures];+-;//AbstractConstraint/constraint; [DELETED from .eStructuralFeatures]
+//AbstractConstraint;;<>;//AbstractConstraint;
+//Constraints; [ADDED to AbstractConstraints.eSuperTypes];+-;//Constraints; [REMOVED from .eSuperTypes]
+//AbstractConstraints/constraints; [ADDED to AbstractConstraints.eStructuralFeatures];+-;//AbstractConstraints/constraints; [DELETED from .eStructuralFeatures]
+//Assumption;;<>;//Assumption;
+//AbstractAssumptions; [ADDED to AbstractAssumption.eSuperTypes];+-;//AbstractAssumptions; [REMOVED from .eSuperTypes]
+//AbstractAssumption/assumption; [ADDED to AbstractAssumption.eStructuralFeatures];+-;//AbstractAssumption/assumption; [DELETED from .eStructuralFeatures]
+//AbstractAssumption;;<>;//AbstractAssumption;
+//Assumptions; [ADDED to AbstractAssumptions.eSuperTypes];+-;//Assumptions; [REMOVED from .eSuperTypes]
+//AbstractAssumptions/assumptions; [ADDED to AbstractAssumptions.eStructuralFeatures];+-;//AbstractAssumptions/assumptions; [DELETED from .eStructuralFeatures]
+//EString;;<>;//EString;
+//EString;;<>;//EString;
+//Status;;<>;//Status;
+//SolutionDecision;;<>;//SolutionDecision;
+//AlternativesBlock;;<>;//AlternativesBlock;
+//AbstractAssumptions;;<>;//AbstractAssumptions;
+//AbstractConstraints;;<>;//AbstractConstraints;
+//AbstractPerson;;<>;//AbstractPerson;
+//Definition; [ADDED to Decision.eSuperTypes];+-;//Definition; [REMOVED from .eSuperTypes]
+//Decision/name; [ADDED to Decision.eStructuralFeatures];+-;//Decision/name; [DELETED from .eStructuralFeatures]
+//Decision/issue; [ADDED to Decision.eStructuralFeatures];+-;//Decision/issue; [DELETED from .eStructuralFeatures]
+//Decision/status; [ADDED to Decision.eStructuralFeatures];+-;//Decision/status; [DELETED from .eStructuralFeatures]
+//Decision/solution; [ADDED to Decision.eStructuralFeatures];+-;//Decision/solution; [DELETED from .eStructuralFeatures]
+//Decision/alternatives; [ADDED to Decision.eStructuralFeatures];+-;//Decision/alternatives; [DELETED from .eStructuralFeatures]
+//Decision/assumptions; [ADDED to Decision.eStructuralFeatures];+-;//Decision/assumptions; [DELETED from .eStructuralFeatures]
+//Decision/constraints; [ADDED to Decision.eStructuralFeatures];+-;//Decision/constraints; [DELETED from .eStructuralFeatures]
+//Decision/owner; [ADDED to Decision.eStructuralFeatures];+-;//Decision/owner; [DELETED from .eStructuralFeatures]
+//Definition;;<>;//Definition;
+//Model/definitions; [ADDED to Model.eStructuralFeatures];+-;//Model/definitions; [DELETED from .eStructuralFeatures]
+//EString;;<>;//EString;
+//EString;;<>;//EString;
+//EString;;<>;//EString;
+//EString;;<>;//EString;
+//Definition; [ADDED to Person.eSuperTypes];+-;//Definition; [REMOVED from .eSuperTypes]
+//AbstractPerson; [ADDED to Person.eSuperTypes];+-;//AbstractPerson; [REMOVED from .eSuperTypes]
+//Person/name; [ADDED to Person.eStructuralFeatures];+-;//Person/name; [DELETED from .eStructuralFeatures]
+//Person/fullname; [ADDED to Person.eStructuralFeatures];+-;//Person/fullname; [DELETED from .eStructuralFeatures]
+//Person/email; [ADDED to Person.eStructuralFeatures];+-;//Person/email; [DELETED from .eStructuralFeatures]
+//Person/role; [ADDED to Person.eStructuralFeatures];+-;//Person/role; [DELETED from .eStructuralFeatures]
+//EString;;<>;//EString;
+//Reasoning/reason; [ADDED to Reasoning.eStructuralFeatures];+-;//Reasoning/reason; [DELETED from .eStructuralFeatures]
+//EString;;<>;//EString;
+//EString;;<>;//EString;
+//AbstractSolution; [ADDED to Solution.eSuperTypes];+-;//AbstractSolution; [REMOVED from .eSuperTypes]
+//Solution/name; [ADDED to Solution.eStructuralFeatures];+-;//Solution/name; [DELETED from .eStructuralFeatures]
+//Solution/solutionText; [ADDED to Solution.eStructuralFeatures];+-;//Solution/solutionText; [DELETED from .eStructuralFeatures]
+//EString;;<>;//EString;
+//EString;;<>;//EString;
+//AbstractConstraint; [ADDED to Constraint.eSuperTypes];+-;//AbstractConstraint; [REMOVED from .eSuperTypes]
+//Constraint/name; [ADDED to Constraint.eStructuralFeatures];+-;//Constraint/name; [DELETED from .eStructuralFeatures]
+//Constraint/constraintText; [ADDED to Constraint.eStructuralFeatures];+-;//Constraint/constraintText; [DELETED from .eStructuralFeatures]
+//EString;;<>;//EString;
+//EString;;<>;//EString;
+//AbstractAssumption; [ADDED to Assumption.eSuperTypes];+-;//AbstractAssumption; [REMOVED from .eSuperTypes]
+//Assumption/name; [ADDED to Assumption.eStructuralFeatures];+-;//Assumption/name; [DELETED from .eStructuralFeatures]
+//Assumption/assumptionText; [ADDED to Assumption.eStructuralFeatures];+-;//Assumption/assumptionText; [DELETED from .eStructuralFeatures]
+//EString;;<>;//EString;
+//EString;;<>;//EString;
+//EString;;<>;//EString;
+//EString;;<>;//EString;
+//Status/DECIDED; [ADDED to Status.eStructuralFeatures];+-;//Status/DECIDED; [DELETED from .eStructuralFeatures]
+//Status/APPROVED; [ADDED to Status.eStructuralFeatures];+-;//Status/APPROVED; [DELETED from .eStructuralFeatures]
+//Status/PENDING; [ADDED to Status.eStructuralFeatures];+-;//Status/PENDING; [DELETED from .eStructuralFeatures]
+//Status/DECLINED; [ADDED to Status.eStructuralFeatures];+-;//Status/DECLINED; [DELETED from .eStructuralFeatures]
+//Definition; [ADDED to Assumptions.eSuperTypes];+-;//Definition; [REMOVED from .eSuperTypes]
+//Definition; [ADDED to Constraints.eSuperTypes];+-;//Definition; [REMOVED from .eSuperTypes]
+//Definition; [ADDED to SolutionsDefinitionBlock.eSuperTypes];+-;//Definition; [REMOVED from .eSuperTypes]
+;;+-;;
+//Model; [ADDED to decDescLanguage.eClassifiers];+-;//Model; [DELETED from .eClassifiers]
+//Definition; [ADDED to decDescLanguage.eClassifiers];+-;//Definition; [DELETED from .eClassifiers]
+//Decision; [ADDED to decDescLanguage.eClassifiers];+-;//Decision; [DELETED from .eClassifiers]
+//Status; [ADDED to decDescLanguage.eClassifiers];+-;//Status; [DELETED from .eClassifiers]
+//Assumptions; [ADDED to decDescLanguage.eClassifiers];+-;//Assumptions; [DELETED from .eClassifiers]
+//AbstractAssumptions; [ADDED to decDescLanguage.eClassifiers];+-;//AbstractAssumptions; [DELETED from .eClassifiers]
+//AbstractAssumption; [ADDED to decDescLanguage.eClassifiers];+-;//AbstractAssumption; [DELETED from .eClassifiers]
+//Assumption; [ADDED to decDescLanguage.eClassifiers];+-;//Assumption; [DELETED from .eClassifiers]
+//Constraints; [ADDED to decDescLanguage.eClassifiers];+-;//Constraints; [DELETED from .eClassifiers]
+//AbstractConstraints; [ADDED to decDescLanguage.eClassifiers];+-;//AbstractConstraints; [DELETED from .eClassifiers]
+//AbstractConstraint; [ADDED to decDescLanguage.eClassifiers];+-;//AbstractConstraint; [DELETED from .eClassifiers]
+//Constraint; [ADDED to decDescLanguage.eClassifiers];+-;//Constraint; [DELETED from .eClassifiers]
+//SolutionsDefinitionBlock; [ADDED to decDescLanguage.eClassifiers];+-;//SolutionsDefinitionBlock; [DELETED from .eClassifiers]
+//AbstractSolutions; [ADDED to decDescLanguage.eClassifiers];+-;//AbstractSolutions; [DELETED from .eClassifiers]
+//AbstractSolution; [ADDED to decDescLanguage.eClassifiers];+-;//AbstractSolution; [DELETED from .eClassifiers]
+//Solution; [ADDED to decDescLanguage.eClassifiers];+-;//Solution; [DELETED from .eClassifiers]
+//SolutionDecision; [ADDED to decDescLanguage.eClassifiers];+-;//SolutionDecision; [DELETED from .eClassifiers]
+//Reasoning; [ADDED to decDescLanguage.eClassifiers];+-;//Reasoning; [DELETED from .eClassifiers]
+//AlternativesBlock; [ADDED to decDescLanguage.eClassifiers];+-;//AlternativesBlock; [DELETED from .eClassifiers]
+//AbstractPerson; [ADDED to decDescLanguage.eClassifiers];+-;//AbstractPerson; [DELETED from .eClassifiers]
+//Person; [ADDED to decDescLanguage.eClassifiers];+-;//Person; [DELETED from .eClassifiers]
