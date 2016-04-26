@@ -30,6 +30,9 @@ Workflow {
 		}
 		language = StandardLanguage {
 			name = "net.dreiucker.DecDescLanguage"
+			
+			referencedResource = "platform:/resource/net.dreiucker.ToReference/model/ToReference.genmodel"
+			
 			fileExtensions = "ddl"
 
 			serializer = {

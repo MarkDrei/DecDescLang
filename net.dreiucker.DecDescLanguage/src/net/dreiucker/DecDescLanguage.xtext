@@ -2,6 +2,9 @@ grammar net.dreiucker.DecDescLanguage with org.eclipse.xtext.common.Terminals
 
 generate decDescLanguage "http://www.dreiucker.net/DecDescLanguage"
 
+// import "platform:/resource/net.dreiucker.ToReference/model/ToReference.ecore" as ref
+import "http://dreiucker.net/toreference" as ref
+
 Model:
 	definitions += Definition*
 ;
@@ -33,6 +36,8 @@ Decision:
 			// The person who is responsible for the decision
 			('Owner:' owner = AbstractPerson)?
 		)
+		
+		('Reference:' ref = [ref::SomeClass])?
 		
 	'}';
 
