@@ -14,6 +14,8 @@ package toreference.validation;
 public interface SomeClassValidator {
 	boolean validate();
 
+	boolean validateName(String value);
+
 	boolean validateId(String value);
 	boolean validateWhatever2(String value);
 }

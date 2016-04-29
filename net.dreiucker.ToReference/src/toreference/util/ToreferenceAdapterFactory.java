@@ -72,6 +72,10 @@ public class ToreferenceAdapterFactory extends AdapterFactoryImpl {
 				return createSomeClassAdapter();
 			}
 			@Override
+			public Adapter caseCollection(Collection object) {
+				return createCollectionAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -102,6 +106,20 @@ public class ToreferenceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSomeClassAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link toreference.Collection <em>Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see toreference.Collection
+	 * @generated
+	 */
+	public Adapter createCollectionAdapter() {
 		return null;
 	}
 

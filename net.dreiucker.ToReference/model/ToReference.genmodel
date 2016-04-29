@@ -7,8 +7,12 @@
   <foreignModel>ToReference.ecore</foreignModel>
   <genPackages prefix="Toreference" disposableProviderFactory="true" ecorePackage="ToReference.ecore#/">
     <genClasses ecoreClass="ToReference.ecore#//SomeClass">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ToReference.ecore#//SomeClass/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ToReference.ecore#//SomeClass/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ToReference.ecore#//SomeClass/Whatever2"/>
+    </genClasses>
+    <genClasses ecoreClass="ToReference.ecore#//Collection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ToReference.ecore#//Collection/children"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ToReference.ecore#//Collection/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

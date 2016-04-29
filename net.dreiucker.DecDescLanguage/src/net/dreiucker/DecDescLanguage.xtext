@@ -4,6 +4,7 @@ generate decDescLanguage "http://www.dreiucker.net/DecDescLanguage"
 
 // import "platform:/resource/net.dreiucker.ToReference/model/ToReference.ecore" as ref
 import "http://dreiucker.net/toreference" as ref
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 Model:
 	definitions += Definition*
@@ -37,10 +38,11 @@ Decision:
 			('Owner:' owner = AbstractPerson)?
 		)
 		
-		('Reference:' ref = [ref::SomeClass])?
+		('Reference:' ref = [ref::SomeClass|FQN])?
 		
 	'}';
 
+FQN returns ecore::EString: ID ("."  ID)*;
 
 // This is an enum
 Status: 

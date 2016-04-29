@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link toreference.SomeClass#getId <em>Id</em>}</li>
+ *   <li>{@link toreference.SomeClass#getName <em>Name</em>}</li>
  *   <li>{@link toreference.SomeClass#getWhatever2 <em>Whatever2</em>}</li>
  * </ul>
  *
@@ -23,30 +23,30 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface SomeClass extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Id</b></em>' attribute.
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Id</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Id</em>' attribute.
-	 * @see #setId(String)
-	 * @see toreference.ToreferencePackage#getSomeClass_Id()
-	 * @model id="true" required="true"
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see toreference.ToreferencePackage#getSomeClass_Name()
+	 * @model required="true"
 	 * @generated
 	 */
-	String getId();
+	String getName();
 
 	/**
-	 * Sets the value of the '{@link toreference.SomeClass#getId <em>Id</em>}' attribute.
+	 * Sets the value of the '{@link toreference.SomeClass#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Id</em>' attribute.
-	 * @see #getId()
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
 	 * @generated
 	 */
-	void setId(String value);
+	void setName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Whatever2</b></em>' attribute.

@@ -57,6 +57,7 @@ public class ToreferenceFactoryImpl extends EFactoryImpl implements ToreferenceF
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case ToreferencePackage.SOME_CLASS: return createSomeClass();
+			case ToreferencePackage.COLLECTION: return createCollection();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -70,6 +71,16 @@ public class ToreferenceFactoryImpl extends EFactoryImpl implements ToreferenceF
 	public SomeClass createSomeClass() {
 		SomeClassImpl someClass = new SomeClassImpl();
 		return someClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Collection createCollection() {
+		CollectionImpl collection = new CollectionImpl();
+		return collection;
 	}
 
 	/**

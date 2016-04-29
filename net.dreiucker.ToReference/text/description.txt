@@ -8,5 +8,9 @@ This can be disabled with -vmargs -Dorg.eclipse.emf.examples.generator.validator
 Package toreference <http://dreiucker.net/toreference>
 
   Class SomeClass
-    Attribute id : EString<<1..1>>
+    Attribute name : EString<<1..1>>
     Attribute Whatever2 : EString
+
+  Class Collection
+    Reference children : SomeClass<<0..*>>
+    Attribute name : EString

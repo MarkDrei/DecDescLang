@@ -20,7 +20,7 @@ import toreference.ToreferencePackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link toreference.impl.SomeClassImpl#getId <em>Id</em>}</li>
+ *   <li>{@link toreference.impl.SomeClassImpl#getName <em>Name</em>}</li>
  *   <li>{@link toreference.impl.SomeClassImpl#getWhatever2 <em>Whatever2</em>}</li>
  * </ul>
  *
@@ -28,24 +28,24 @@ import toreference.ToreferencePackage;
  */
 public class SomeClassImpl extends MinimalEObjectImpl.Container implements SomeClass {
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getId()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String ID_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getId()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String id = ID_EDEFAULT;
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getWhatever2() <em>Whatever2</em>}' attribute.
@@ -91,8 +91,8 @@ public class SomeClassImpl extends MinimalEObjectImpl.Container implements SomeC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getId() {
-		return id;
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -100,11 +100,11 @@ public class SomeClassImpl extends MinimalEObjectImpl.Container implements SomeC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setId(String newId) {
-		String oldId = id;
-		id = newId;
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ToreferencePackage.SOME_CLASS__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, ToreferencePackage.SOME_CLASS__NAME, oldName, name));
 	}
 
 	/**
@@ -136,8 +136,8 @@ public class SomeClassImpl extends MinimalEObjectImpl.Container implements SomeC
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ToreferencePackage.SOME_CLASS__ID:
-				return getId();
+			case ToreferencePackage.SOME_CLASS__NAME:
+				return getName();
 			case ToreferencePackage.SOME_CLASS__WHATEVER2:
 				return getWhatever2();
 		}
@@ -152,8 +152,8 @@ public class SomeClassImpl extends MinimalEObjectImpl.Container implements SomeC
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ToreferencePackage.SOME_CLASS__ID:
-				setId((String)newValue);
+			case ToreferencePackage.SOME_CLASS__NAME:
+				setName((String)newValue);
 				return;
 			case ToreferencePackage.SOME_CLASS__WHATEVER2:
 				setWhatever2((String)newValue);
@@ -170,8 +170,8 @@ public class SomeClassImpl extends MinimalEObjectImpl.Container implements SomeC
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ToreferencePackage.SOME_CLASS__ID:
-				setId(ID_EDEFAULT);
+			case ToreferencePackage.SOME_CLASS__NAME:
+				setName(NAME_EDEFAULT);
 				return;
 			case ToreferencePackage.SOME_CLASS__WHATEVER2:
 				setWhatever2(WHATEVER2_EDEFAULT);
@@ -188,8 +188,8 @@ public class SomeClassImpl extends MinimalEObjectImpl.Container implements SomeC
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ToreferencePackage.SOME_CLASS__ID:
-				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case ToreferencePackage.SOME_CLASS__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ToreferencePackage.SOME_CLASS__WHATEVER2:
 				return WHATEVER2_EDEFAULT == null ? whatever2 != null : !WHATEVER2_EDEFAULT.equals(whatever2);
 		}
@@ -206,8 +206,8 @@ public class SomeClassImpl extends MinimalEObjectImpl.Container implements SomeC
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
-		result.append(id);
+		result.append(" (name: ");
+		result.append(name);
 		result.append(", Whatever2: ");
 		result.append(whatever2);
 		result.append(')');

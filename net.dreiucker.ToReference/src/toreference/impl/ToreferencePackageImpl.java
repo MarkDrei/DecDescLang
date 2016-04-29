@@ -6,8 +6,10 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import toreference.Collection;
 import toreference.SomeClass;
 import toreference.ToreferenceFactory;
 import toreference.ToreferencePackage;
@@ -25,6 +27,13 @@ public class ToreferencePackageImpl extends EPackageImpl implements ToreferenceP
 	 * @generated
 	 */
 	private EClass someClassEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass collectionEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -101,7 +110,7 @@ public class ToreferencePackageImpl extends EPackageImpl implements ToreferenceP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSomeClass_Id() {
+	public EAttribute getSomeClass_Name() {
 		return (EAttribute)someClassEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -112,6 +121,33 @@ public class ToreferencePackageImpl extends EPackageImpl implements ToreferenceP
 	 */
 	public EAttribute getSomeClass_Whatever2() {
 		return (EAttribute)someClassEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCollection() {
+		return collectionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCollection_Children() {
+		return (EReference)collectionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCollection_Name() {
+		return (EAttribute)collectionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -143,8 +179,12 @@ public class ToreferencePackageImpl extends EPackageImpl implements ToreferenceP
 
 		// Create classes and their features
 		someClassEClass = createEClass(SOME_CLASS);
-		createEAttribute(someClassEClass, SOME_CLASS__ID);
+		createEAttribute(someClassEClass, SOME_CLASS__NAME);
 		createEAttribute(someClassEClass, SOME_CLASS__WHATEVER2);
+
+		collectionEClass = createEClass(COLLECTION);
+		createEReference(collectionEClass, COLLECTION__CHILDREN);
+		createEAttribute(collectionEClass, COLLECTION__NAME);
 	}
 
 	/**
@@ -178,8 +218,12 @@ public class ToreferencePackageImpl extends EPackageImpl implements ToreferenceP
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(someClassEClass, SomeClass.class, "SomeClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSomeClass_Id(), ecorePackage.getEString(), "id", null, 1, 1, SomeClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSomeClass_Name(), ecorePackage.getEString(), "name", null, 1, 1, SomeClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSomeClass_Whatever2(), ecorePackage.getEString(), "Whatever2", null, 0, 1, SomeClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(collectionEClass, Collection.class, "Collection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCollection_Children(), this.getSomeClass(), null, "children", null, 0, -1, Collection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCollection_Name(), ecorePackage.getEString(), "name", null, 0, 1, Collection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
