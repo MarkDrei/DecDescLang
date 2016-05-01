@@ -13,7 +13,6 @@ local.properties
 .recommenders
 
 # Eclipse Core
-.project
 
 # External tool builders
 .externalToolBuilders/
