@@ -1,5 +1,6 @@
 # credits to github/gitignore
 
+plugin.xml_gen
 *.class
 */reports/
 
