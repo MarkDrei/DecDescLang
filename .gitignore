@@ -1,6 +1,7 @@
 # credits to github/gitignore
 
 *.class
+*/reports/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
