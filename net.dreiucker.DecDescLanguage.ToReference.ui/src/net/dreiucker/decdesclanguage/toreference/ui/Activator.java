@@ -48,7 +48,9 @@ public class Activator extends AbstractUIPlugin {
 	
 	private void crash(Module module)
 	{
-		tutNix(module);
+		if (module instanceof Module) {
+			tutNix(module);
+		}
 	}
 
 	private void initializeEcoreInjector() {
