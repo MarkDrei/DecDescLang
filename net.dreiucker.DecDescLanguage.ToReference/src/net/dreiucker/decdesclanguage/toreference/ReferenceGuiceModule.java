@@ -15,9 +15,9 @@ public class ReferenceGuiceModule extends AbstractGenericResourceRuntimeModule  
 
 	@Override
 	protected String getLanguageName() {
-		// TODO is the value of relevance?
-		// the blog article has  "org.eclipse.uml2.uml.editor.presentation.UMLEditorID";
-		return "net.dreiucker.ToReference";
+		// This is the editor ID of the editor which is to be opened whenever
+		//  ctrl-click / F3 happens on the referenced name
+		return "toreference.presentation.ToreferenceEditorID";
 	}
 
 	@Override
