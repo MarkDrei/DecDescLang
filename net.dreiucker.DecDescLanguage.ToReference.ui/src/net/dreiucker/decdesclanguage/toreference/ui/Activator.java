@@ -1,9 +1,5 @@
 package net.dreiucker.decdesclanguage.toreference.ui;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.ui.shared.SharedStateModule;
@@ -43,14 +39,16 @@ public class Activator extends AbstractUIPlugin {
 	}
 	
 	private void tutNix(Module... modules) {
+		System.out.println("Keine exception??");
 		// no op
 	}
 	
 	private void crash(Module module)
 	{
 		if (module instanceof Module) {
-			tutNix(module);
+			System.out.println("Du kommst hier net rein!");
 		}
+		tutNix(module);
 	}
 
 	private void initializeEcoreInjector() {
@@ -64,7 +62,6 @@ public class Activator extends AbstractUIPlugin {
 			System.err.println(e.toString());
 			e.printStackTrace();
 		}
-		tutNix(tmp);
 		OverriddenModuleBuilder override = Modules.override(referenceGuiceModule);
 		Module module = override.with(toreferenceUiModule);
 		module = Modules.override(referenceGuiceModule).with(toreferenceUiModule);
