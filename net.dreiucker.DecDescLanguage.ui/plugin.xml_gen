@@ -150,7 +150,7 @@
 					definitionId="net.dreiucker.DecDescLanguage.Editor.opened">
 				</reference>
 			</visibleWhen>
-		</command>  
+		</command>
 		</menuContribution>
 		<!-- copy qualified name -->
 		<menuContribution locationURI="popup:#TextEditorContext?after=copy">
@@ -159,7 +159,7 @@
 				<visibleWhen checkEnabled="false">
 					<reference definitionId="net.dreiucker.DecDescLanguage.Editor.opened" />
 				</visibleWhen>
-			</command>  
+			</command>
 		</menuContribution>
 		<menuContribution locationURI="menu:edit?after=copy">
 			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
@@ -167,7 +167,7 @@
 				<visibleWhen checkEnabled="false">
 					<reference definitionId="net.dreiucker.DecDescLanguage.Editor.opened" />
 				</visibleWhen>
-			</command>  
+			</command>
 		</menuContribution>
 		<menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
 			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName" 
@@ -213,10 +213,10 @@
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
-	    <resourceServiceProvider
-	        class="net.dreiucker.ui.DecDescLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-	        uriExtension="ddl">
-	    </resourceServiceProvider>
+		<resourceServiceProvider
+			class="net.dreiucker.ui.DecDescLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			uriExtension="ddl">
+		</resourceServiceProvider>
 	</extension>
 	<!-- marker definitions for net.dreiucker.DecDescLanguage -->
 	<extension
@@ -323,31 +323,31 @@
 	</extension>
 	<!-- quickfix marker resolution generator for net.dreiucker.DecDescLanguage -->
 	<extension
-	        point="org.eclipse.ui.ide.markerResolution">
-	    <markerResolutionGenerator
-	        class="net.dreiucker.ui.DecDescLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-	        markerType="net.dreiucker.DecDescLanguage.ui.decdesclanguage.check.fast">
-	        <attribute
-	            name="FIXABLE_KEY"
-	            value="true">
-	        </attribute>
-	    </markerResolutionGenerator>
-	    <markerResolutionGenerator
-	        class="net.dreiucker.ui.DecDescLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-	        markerType="net.dreiucker.DecDescLanguage.ui.decdesclanguage.check.normal">
-	        <attribute
-	            name="FIXABLE_KEY"
-	            value="true">
-	        </attribute>
-	    </markerResolutionGenerator>
-	    <markerResolutionGenerator
-	        class="net.dreiucker.ui.DecDescLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-	        markerType="net.dreiucker.DecDescLanguage.ui.decdesclanguage.check.expensive">
-	        <attribute
-	            name="FIXABLE_KEY"
-	            value="true">
-	        </attribute>
-	    </markerResolutionGenerator>
+			point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator
+			class="net.dreiucker.ui.DecDescLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			markerType="net.dreiucker.DecDescLanguage.ui.decdesclanguage.check.fast">
+			<attribute
+				name="FIXABLE_KEY"
+				value="true">
+			</attribute>
+		</markerResolutionGenerator>
+		<markerResolutionGenerator
+			class="net.dreiucker.ui.DecDescLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			markerType="net.dreiucker.DecDescLanguage.ui.decdesclanguage.check.normal">
+			<attribute
+				name="FIXABLE_KEY"
+				value="true">
+			</attribute>
+		</markerResolutionGenerator>
+		<markerResolutionGenerator
+			class="net.dreiucker.ui.DecDescLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			markerType="net.dreiucker.DecDescLanguage.ui.decdesclanguage.check.expensive">
+			<attribute
+				name="FIXABLE_KEY"
+				value="true">
+			</attribute>
+		</markerResolutionGenerator>
 	</extension>
 	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
