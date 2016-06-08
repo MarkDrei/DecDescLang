@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ReqIf Referencing UI
+Bundle-SymbolicName: net.dreiucker.DecDescLanguage.ReqIf.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.dreiucker.decdesclanguage.reqif.ui.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ net.dreiucker.DecDescLanguage.ReqIf,
+ org.eclipse.xtext.ui,
+ org.eclipse.xtext.ui.shared
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Import-Package: org.apache.log4j;version="1.2.15"

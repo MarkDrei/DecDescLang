@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ReqIf Referencing
+Bundle-SymbolicName: net.dreiucker.DecDescLanguage.ReqIf
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.dreiucker.decdesclanguage.reqif.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.xtext,
+ org.eclipse.rmf.reqif10
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: net.dreiucker.decdesclanguage.reqif

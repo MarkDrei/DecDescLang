@@ -2,8 +2,7 @@ grammar net.dreiucker.DecDescLanguage with org.eclipse.xtext.common.Terminals
 
 generate decDescLanguage "http://www.dreiucker.net/DecDescLanguage"
 
-// import "platform:/resource/net.dreiucker.ToReference/model/ToReference.ecore" as ref
-import "http://dreiucker.net/toreference" as ref
+import "http://www.omg.org/spec/ReqIF/20110401/reqif.xsd" as req
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 Model:
@@ -38,7 +37,8 @@ Decision:
 			('Owner:' owner = AbstractPerson)?
 		)
 		
-		('Reference:' ref = [ref::SomeClass|FQN])?
+//		('Reference:' ref = [req::MyClass|FQN])?
+		('Reference:' ref = [req::SpecObject])?
 		
 	'}';
 

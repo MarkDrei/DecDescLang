@@ -22,7 +22,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//AbstractPerson"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="ecore:EClass platform:/resource/net.dreiucker.ToReference/model/ToReference.ecore#//SomeClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="ecore:EClass platform:/resource/org.eclipse.rmf.reqif10/model/reqif10.ecore#//SpecObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Status">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="DECIDED" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
