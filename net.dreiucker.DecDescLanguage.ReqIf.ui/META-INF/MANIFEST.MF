@@ -8,7 +8,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  net.dreiucker.DecDescLanguage.ReqIf,
  org.eclipse.xtext.ui,
- org.eclipse.xtext.ui.shared
+ org.eclipse.xtext.ui.shared,
+ org.eclipse.rmf.reqif10.pror.editor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j;version="1.2.15"

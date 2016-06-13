@@ -52,7 +52,7 @@ public class QualifiedNameProvider  extends DefaultDeclarativeQualifiedNameProvi
 	 */
 	private QualifiedName identifySpecObjectNames(SpecObject specObject) {
 		QualifiedName result = null;
-		String identifier = getIdentifier(specObject);
+		String identifier = findIdForNameAttribute(specObject);
 		if (identifier != null) {
 			EList<AttributeValue> values = specObject.getValues();
 			for (AttributeValue value : values) { 
@@ -82,47 +82,16 @@ public class QualifiedNameProvider  extends DefaultDeclarativeQualifiedNameProvi
 	 * 
 	 * @return the requested UUID or <code>null</code> in case it could not be found 
 	 */
-	private String getIdentifier(SpecObject specObject) {
+	private String findIdForNameAttribute(SpecObject specObject) {
 		EObject container = specObject.eContainer();
 		// search in the hierarchy for the ReqIFContent
 		while (container != null && !(container instanceof ReqIFContent)) {
 			container = container.eContainer();
 		}
 		if (container != null && (container instanceof ReqIFContent)) {
-			return findIdForNameAttribute((ReqIFContent) container);
+			return ReqifModelHelper.findIdForNameAttribute((ReqIFContent) container);
 		}
 		return null;
 	}
 
-	/**
-	 * Find the definition of the name/id attribute and return its ID.
-	 * 
-	 * @param content
-	 * @return the requested UUID or <code>null</code> in case it could not be found 
-	 */
-	private String findIdForNameAttribute(ReqIFContent content) {
-		/*
-		 * The expected hierarchy is:
-		 * 
-		 *  ReqIFContent
-		 *  \-- SpecType (0...n) (long name = "Requirement Type")
-		 *      \-- AttributeDefinition (long name = ID")
-		 *          \-- identifier
-		 */
-		
-		EList<SpecType> specTypes = content.getSpecTypes();
-		for (SpecType type : specTypes) {
-			if (REQUIREMENT_TYPE_LONG_NAME.equals(type.getLongName())) {
-				EList<AttributeDefinition> attributes = type.getSpecAttributes();
-				for (AttributeDefinition attribute : attributes) {
-					if (SPEC_OBJECT_NAME_ID.equals(attribute.getLongName())) {
-						return attribute.getIdentifier();
-					}
-				}
-			}
-		}
-		// not found...
-		return null;
-	}
-	
 }
