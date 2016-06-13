@@ -30,6 +30,12 @@ Workflow {
 		}
 		language = StandardLanguage {
 			name = "net.dreiucker.DecDescLanguage"
+			
+			//referencedResource = "platform:/resource/net.dreiucker.ToReference/model/ToReference.genmodel"
+//			referencedResource = "platform:/resource/org.eclipse.rmf.reqif10/model/My.genmodel"
+//			referencedResource = "platform:/resource/org.eclipse.rmf.reqif10.xhtml/model/xhtml.genmodel"
+			referencedResource = "platform:/resource/org.eclipse.rmf.reqif10/model/reqif10.genmodel"
+			
 			fileExtensions = "ddl"
 
 			serializer = {

@@ -3,6 +3,10 @@
  */
 package net.dreiucker.scoping
 
+//import org.eclipse.emf.ecore.EObject
+//import org.eclipse.emf.ecore.EReference
+//import org.eclipse.xtext.scoping.IScope
+//import org.eclipse.xtext.EcoreUtil2
 
 /**
  * This class contains custom scoping description.
@@ -11,5 +15,25 @@ package net.dreiucker.scoping
  * on how and when to use it.
  */
 class DecDescLanguageScopeProvider extends AbstractDecDescLanguageScopeProvider {
-
+	
+	/*
+	 * context: the element from which an element shall be referenced.
+	 *          It doesn't need to be the element containing the reference, 
+	 *          it is just used to find the most inner scope for given EReference.
+	 * reference: the reference for which to get the scope.
+	 * 
+	 * Returns: IScope representing the innermost IScope for the 
+	 *          passed context and reference. 
+	 * Note for implementors: The result may not be null. Return IScope.NULLSCOPE instead.
+	 */
+//	override getScope(EObject context, EReference reference) {
+//		var scope = super.getScope(context, reference);
+////		return IScope.NULLSCOPE;
+//		scope = super.getScope(context, reference);
+//		// reference.name == "ref"
+//		var root = EcoreUtil2.getRootContainer(context);
+//		EcoreUtil2.getallC
+//		return scope;
+//	}
+	
 }
