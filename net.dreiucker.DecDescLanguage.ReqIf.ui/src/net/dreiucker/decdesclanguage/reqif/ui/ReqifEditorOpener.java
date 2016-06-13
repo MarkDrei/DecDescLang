@@ -9,13 +9,11 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.rmf.reqif10.AttributeDefinitionString;
-import org.eclipse.rmf.reqif10.AttributeValue;
-import org.eclipse.rmf.reqif10.AttributeValueString;
 import org.eclipse.rmf.reqif10.ReqIF;
 import org.eclipse.rmf.reqif10.SpecHierarchy;
 import org.eclipse.rmf.reqif10.SpecObject;
 import org.eclipse.rmf.reqif10.Specification;
+import org.eclipse.rmf.reqif10.pror.editor.ISpecificationEditor;
 import org.eclipse.rmf.reqif10.pror.editor.presentation.Reqif10Editor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -30,8 +28,6 @@ import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.Tuples;
 
 import com.google.inject.Inject;
-
-import net.dreiucker.decdesclanguage.reqif.ReqifModelHelper;
 
 public class ReqifEditorOpener extends LanguageSpecificURIEditorOpener  {
 
@@ -87,26 +83,18 @@ public class ReqifEditorOpener extends LanguageSpecificURIEditorOpener  {
 	protected void selectAndReveal(IEditorPart openEditor, URI uri, EReference crossReference, int indexInList,
 			boolean select) {
 		
-		String specId = getSpecObjectID(); 
+		String specObjectUUID = uri.fragment();
 		
-		final Reqif10Editor editor = (Reqif10Editor) openEditor.getAdapter(Reqif10Editor.class);
+		Reqif10Editor editor = (Reqif10Editor) openEditor.getAdapter(Reqif10Editor.class);
 
 		if (editor != null) {
-			final Pair<Specification, SpecObject> spec = findSpecification(specId, editor.getReqif());
+			Pair<Specification, SpecHierarchy> spec = findSpecification(specObjectUUID, editor.getReqif());
 			
-			if (spec.getFirst() != null) {
-				editor.setFocus();
-				final StructuredSelection structuredSelection = new StructuredSelection(spec.getFirst().getChildren().get(1));
-				editor.setSelection(structuredSelection);
+			if (spec != null && spec.getFirst() != null) {
+				editor.setSelection(new StructuredSelection(spec.getSecond()));
 				editor.openSpecEditor(spec.getFirst());
 			}
 		}
-	}
-
-	private String getSpecObjectID() {
-		//TODO ask the xtext editor for its current selection so identify the hyperlink element target
-		String specId = "Req02";
-		return specId;
 	}
 
 	/**
@@ -115,46 +103,34 @@ public class ReqifEditorOpener extends LanguageSpecificURIEditorOpener  {
 	 * SpecObject is returned. If it is contained in more than one
 	 * Specification, then the first one is returned.
 	 * 
-	 * @param specID
-	 *            The id of the spec object that is searched
+	 * @param specObjectUUID
+	 *            The id of the spec object
 	 * @param reqif
 	 *            The root of the model which will be searched
 	 * @return The searched specObject and the first Specification it is
 	 *         contained in. <code>null</code> contents possible for one or both values
 	 */
-	private Pair<Specification, SpecObject> findSpecification(String specID, ReqIF reqif) {
-		String nameId = ReqifModelHelper.findIdForNameAttribute(reqif.getCoreContent());
-		
+	private Pair<Specification, SpecHierarchy> findSpecification(String specObjectUUID, ReqIF reqif) {
 		EList<Specification> specifications = reqif.getCoreContent().getSpecifications();
 		for(Specification spec : specifications) {
-			SpecObject specObject = findSpecObject(nameId, specID, spec.getChildren());
-			if (specObject != null) {
-				return Tuples.create(spec, specObject);
+			SpecHierarchy specHierarchy = findSpecHierarchy(specObjectUUID, spec.getChildren());
+			if (specHierarchy != null) {
+				return Tuples.create(spec, specHierarchy);
 			}
 		}
-		// TODO search the spec objects directly, we might just find the specObject but it is
-		//      not contained in any specification
-		
 		// TODO none was found
 		return null;
 	}
 	
-	private SpecObject findSpecObject(String nameId, String specID, EList<SpecHierarchy> hierarchies) {
+	private SpecHierarchy findSpecHierarchy(String specObjectUUID, EList<SpecHierarchy> hierarchies) {
 		for (SpecHierarchy hierarchy : hierarchies) {
 			SpecObject specObject = hierarchy.getObject();
-			EList<AttributeValue> values = specObject.getValues();
-			for(AttributeValue value : values) {
-				if (value instanceof AttributeValueString) {
-					String theValue = ((AttributeValueString) value).getTheValue();
-					if (theValue.equals(specID)) {
-						AttributeDefinitionString definition = ((AttributeValueString) value).getDefinition();
-						if (nameId.equals(definition.getIdentifier())) {
-							return specObject;
-						}
-					}
-				}
+			if (specObjectUUID.equals(specObject.getIdentifier())) {
+				//TODO remove
+				System.out.println("MDD Found SpecObject, desc:\"" + specObject.getDesc() +"\" uuid: " + specObject.getIdentifier());
+				return hierarchy;
 			}
-			SpecObject result = findSpecObject(nameId, specID, hierarchy.getChildren());
+			SpecHierarchy result = findSpecHierarchy(specObjectUUID, hierarchy.getChildren());
 			if (result != null) return result;
 		}
 		return null;
