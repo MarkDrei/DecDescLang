@@ -9,7 +9,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.util.Modules;
-import com.google.inject.util.Modules.OverriddenModuleBuilder;
 
 import net.dreiucker.decdesclanguage.reqif.GuiceModule;
 

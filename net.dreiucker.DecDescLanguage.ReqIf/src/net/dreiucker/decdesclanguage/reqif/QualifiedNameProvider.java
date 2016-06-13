@@ -2,12 +2,10 @@ package net.dreiucker.decdesclanguage.reqif;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.rmf.reqif10.AttributeDefinition;
 import org.eclipse.rmf.reqif10.AttributeValue;
 import org.eclipse.rmf.reqif10.AttributeValueString;
 import org.eclipse.rmf.reqif10.ReqIFContent;
 import org.eclipse.rmf.reqif10.SpecObject;
-import org.eclipse.rmf.reqif10.SpecType;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
@@ -16,8 +14,7 @@ import com.google.inject.Inject;
 
 public class QualifiedNameProvider  extends DefaultDeclarativeQualifiedNameProvider {
 
-	private final static String SPEC_OBJECT_NAME_ID = "ID";
-	private final static String REQUIREMENT_TYPE_LONG_NAME = "Requirement Type";
+	private static boolean DEBUG = false;
 	
 	private IQualifiedNameConverter nameConverter;
 
@@ -67,8 +64,7 @@ public class QualifiedNameProvider  extends DefaultDeclarativeQualifiedNameProvi
 			}
 		}
 		
-		//TODO remove
-		if (result != null) {
+		if (DEBUG && result != null) {
 			System.out.println("MDD generated a new qualified name: " + result.toString());
 		}
 		return result;

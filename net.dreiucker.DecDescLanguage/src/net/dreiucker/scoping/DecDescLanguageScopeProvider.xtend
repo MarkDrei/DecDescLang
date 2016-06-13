@@ -3,10 +3,10 @@
  */
 package net.dreiucker.scoping
 
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.EReference
-import org.eclipse.xtext.scoping.IScope
-import org.eclipse.xtext.EcoreUtil2
+//import org.eclipse.emf.ecore.EObject
+//import org.eclipse.emf.ecore.EReference
+//import org.eclipse.xtext.scoping.IScope
+//import org.eclipse.xtext.EcoreUtil2
 
 /**
  * This class contains custom scoping description.

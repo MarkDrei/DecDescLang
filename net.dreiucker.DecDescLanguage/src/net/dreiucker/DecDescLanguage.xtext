@@ -37,8 +37,7 @@ Decision:
 			('Owner:' owner = AbstractPerson)?
 		)
 		
-//		('Reference:' ref = [req::MyClass|FQN])?
-		('Reference:' ref = [req::SpecObject])?
+		('Reference:' ref = [req::SpecObject|FQN])?
 		
 	'}';
 

@@ -13,7 +13,6 @@ import org.eclipse.rmf.reqif10.ReqIF;
 import org.eclipse.rmf.reqif10.SpecHierarchy;
 import org.eclipse.rmf.reqif10.SpecObject;
 import org.eclipse.rmf.reqif10.Specification;
-import org.eclipse.rmf.reqif10.pror.editor.ISpecificationEditor;
 import org.eclipse.rmf.reqif10.pror.editor.presentation.Reqif10Editor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -126,8 +125,6 @@ public class ReqifEditorOpener extends LanguageSpecificURIEditorOpener  {
 		for (SpecHierarchy hierarchy : hierarchies) {
 			SpecObject specObject = hierarchy.getObject();
 			if (specObjectUUID.equals(specObject.getIdentifier())) {
-				//TODO remove
-				System.out.println("MDD Found SpecObject, desc:\"" + specObject.getDesc() +"\" uuid: " + specObject.getIdentifier());
 				return hierarchy;
 			}
 			SpecHierarchy result = findSpecHierarchy(specObjectUUID, hierarchy.getChildren());
