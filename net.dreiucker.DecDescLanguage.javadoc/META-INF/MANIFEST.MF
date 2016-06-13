@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DDL-JavadocExtender
+Bundle-SymbolicName: net.dreiucker.DecDescLanguage.javadoc
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.dreiucker.decdesclanguage.javadoc.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
