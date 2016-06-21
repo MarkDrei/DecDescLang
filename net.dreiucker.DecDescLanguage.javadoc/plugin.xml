@@ -10,7 +10,7 @@
    <extension
          point="org.eclipse.xtext.builder.participant">
       <participant
-            class="net.dreiucker.decdesclanguage.javadoc.BuilderParticipant">
+            class="net.dreiucker.decdesclanguage.javadoc.DdlElementProvider">
       </participant>
    </extension>
 
