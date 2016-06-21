@@ -43,11 +43,11 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 
 	@Override
 	public Set<String> getKnownElements() {
-		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
 		DdlResourceCollector resourceCollector = new DdlResourceCollector();
 		try {
-			myWorkspaceRoot.accept(resourceCollector, 0);
+			workspaceRoot.accept(resourceCollector, 0);
 		} catch (CoreException e) {
 			System.err.println("Failed to calculate known javadoc elements for tag " + VALID_TAG);
 			e.printStackTrace();
