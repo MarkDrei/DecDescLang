@@ -1,18 +1,29 @@
 package net.dreiucker.decdesclanguage.javadoc;
 
+import org.apache.log4j.Logger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.shared.SharedStateModule;
 import org.osgi.framework.BundleContext;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.google.inject.util.Modules;
 
 /**
  * The activator class controls the plug-in life cycle
  */
 public class Activator extends AbstractUIPlugin {
 
+	private static final Logger logger = Logger.getLogger(Activator.class);
+	
 	// The plug-in ID
 	public static final String PLUGIN_ID = "net.dreiucker.DecDescLanguage.javadoc"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Activator plugin;
+
+	private Injector injector;
 	
 	/**
 	 * The constructor
@@ -27,6 +38,23 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		try {
+			initializeJavadocInjector();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw e;
+		}
+	}
+
+	private void initializeJavadocInjector() {
+		JDocGuiceModule guiceModule = new JDocGuiceModule();
+		JDocUiModule javadocUiModule = new JDocUiModule(plugin);
+		
+		Module module = Modules.override(guiceModule).with(javadocUiModule);
+		
+		SharedStateModule sharedStateModule = new SharedStateModule();
+		Module finalModule = Modules.override(module).with(sharedStateModule);
+		injector = Guice.createInjector(finalModule);
 	}
 
 	/*
@@ -35,7 +63,12 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
+		injector = null;
 		super.stop(context);
+	}
+	
+	public Injector getInjector() {
+		return injector;
 	}
 
 	/**
