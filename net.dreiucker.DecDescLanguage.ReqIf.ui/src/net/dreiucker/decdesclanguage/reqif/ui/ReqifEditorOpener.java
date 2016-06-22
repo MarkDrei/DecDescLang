@@ -28,6 +28,8 @@ import org.eclipse.xtext.util.Tuples;
 
 import com.google.inject.Inject;
 
+import net.dreiucker.decdesclanguage.reqif.ReqifModelHelper2;
+
 public class ReqifEditorOpener extends LanguageSpecificURIEditorOpener  {
 
 
@@ -44,6 +46,7 @@ public class ReqifEditorOpener extends LanguageSpecificURIEditorOpener  {
 	
 	@Override
 	public IEditorPart open(URI uri, EReference crossReference, int indexInList, boolean select) {
+		// note: uri has the form platform:/resource/TestDSL/src/example1/Example1_2.reqif#_snfkcC2JEeawXsRfXiQg4Q
 		
 		// get the editor
 		String editorId = null;
@@ -59,14 +62,14 @@ public class ReqifEditorOpener extends LanguageSpecificURIEditorOpener  {
 			editorId = getEditorId();
 		}
 		
-		// note: the following code is taken form the superclass
+		// note: the following code is copied form the superclass
 		Iterator<Pair<IStorage, IProject>> storages = mapper.getStorages(uri.trimFragment()).iterator();
 		if (storages != null && storages.hasNext()) {
 			try {
 				IStorage storage = storages.next().getFirst();
 				IEditorInput editorInput = EditorUtils.createEditorInput(storage);
 				IWorkbenchPage activePage = workbench.getActiveWorkbenchWindow().getActivePage();
-				final IEditorPart editor = IDE.openEditor(activePage, editorInput, editorId);
+				IEditorPart editor = IDE.openEditor(activePage, editorInput, editorId);
 				selectAndReveal(editor, uri, crossReference, indexInList, select);
 				return EditorUtils.getXtextEditor(editor);
 			} catch (WrappedException e) {
@@ -112,24 +115,12 @@ public class ReqifEditorOpener extends LanguageSpecificURIEditorOpener  {
 	private Pair<Specification, SpecHierarchy> findSpecification(String specObjectUUID, ReqIF reqif) {
 		EList<Specification> specifications = reqif.getCoreContent().getSpecifications();
 		for(Specification spec : specifications) {
-			SpecHierarchy specHierarchy = findSpecHierarchy(specObjectUUID, spec.getChildren());
+			SpecHierarchy specHierarchy = ReqifModelHelper2.findSpecHierarchyByUUID(specObjectUUID, spec.getChildren());
 			if (specHierarchy != null) {
 				return Tuples.create(spec, specHierarchy);
 			}
 		}
 		// TODO none was found
-		return null;
-	}
-	
-	private SpecHierarchy findSpecHierarchy(String specObjectUUID, EList<SpecHierarchy> hierarchies) {
-		for (SpecHierarchy hierarchy : hierarchies) {
-			SpecObject specObject = hierarchy.getObject();
-			if (specObjectUUID.equals(specObject.getIdentifier())) {
-				return hierarchy;
-			}
-			SpecHierarchy result = findSpecHierarchy(specObjectUUID, hierarchy.getChildren());
-			if (result != null) return result;
-		}
 		return null;
 	}
 }
