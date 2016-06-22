@@ -107,7 +107,13 @@ public class ReqIfElementProvider implements IElementProvider {
 	public void removeElementsChangedListener(IElementChangeListener listener) {
 		listeners.remove(listener);
 	}
-
+	
+	@Override
+	public void openEditor(String text) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	/**
 	 * Collects all {@link IResource} elements which are DDL elements
 	 * 

@@ -1,7 +1,9 @@
 package net.dreiucker.decdesclanguage.javadoc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IResource;
@@ -18,6 +20,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xtext.builder.IXtextBuilderParticipant;
+import org.eclipse.xtext.ui.editor.LanguageSpecificURIEditorOpener;
 
 import net.dreiucker.decDescLanguage.Decision;
 import net.dreiucker.decDescLanguage.Definition;
@@ -25,12 +28,18 @@ import net.dreiucker.decDescLanguage.Model;
 import net.dreiucker.decDescLanguage.impl.ModelImpl;
 import net.dreiucker.javadocextender.extensionpoint.IElementChangeListener;
 import net.dreiucker.javadocextender.extensionpoint.IElementProvider;
+import net.dreiucker.ui.CustomDdlActivator;
 
 public class DdlElementProvider implements IElementProvider, IXtextBuilderParticipant {
 
+	private final static boolean DEBUG = false;
+	
 	private final static String VALID_TAG = "decision";
 	
 	private ArrayList<IElementChangeListener> changeListeners;
+	
+	// Buffers the relation from "ddl decision" to the file path it is contained in
+	Map<String, URI> decisionsToFiles = new HashMap<>();
 	
 	public DdlElementProvider() {
 		changeListeners = new ArrayList<>();
@@ -43,11 +52,9 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 
 	@Override
 	public Set<String> getKnownElements() {
-		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-
 		DdlResourceCollector resourceCollector = new DdlResourceCollector();
 		try {
-			workspaceRoot.accept(resourceCollector, 0);
+			getWorkspaceRoot().accept(resourceCollector, 0);
 		} catch (CoreException e) {
 			System.err.println("Failed to calculate known javadoc elements for tag " + VALID_TAG);
 			e.printStackTrace();
@@ -56,17 +63,24 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 		ResourceSet resSet = new ResourceSetImpl();
 		Set<String> result = new HashSet<>();
 		for (IResource iRes : resourceCollector.resources) {
+			int definitionIndex = -1;
 			String uriString = "platform:/resource" + iRes.getFullPath().toString();
 			Resource res = resSet.getResource(URI.createURI(uriString), true);
 			for (EObject content : res.getContents()) {
 				if (content instanceof Model) {
 					EList<Definition> definitions = ((ModelImpl) content).getDefinitions();
 					for (Definition def : definitions) {
+						definitionIndex++;
 						if (def instanceof Decision) {
 							String decisionName = ((Decision) def).getName();
 							result.add(decisionName);
-							// TODO remove
-							System.out.println("  MDD found a decision: " + decisionName);
+							// create a URI string in the format
+							//   platform:/resource/TestDSL/src/example1/people.ddl#//@definitions.1
+							String definitionUri = uriString + "#//@definitions." + definitionIndex;
+							decisionsToFiles.put(decisionName, URI.createURI(definitionUri));
+							if (DEBUG) {
+								System.out.println("  MDD found a decision: " + decisionName);
+							}
 						}
 					}
 				}
@@ -74,6 +88,10 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 		}
 		
 		return result;
+	}
+	
+	private IWorkspaceRoot getWorkspaceRoot() {
+		return ResourcesPlugin.getWorkspace().getRoot();
 	}
 
 	@Override
@@ -97,6 +115,36 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 		for (IElementChangeListener l : changeListeners) {
 			l.knownElementsChanged();
 		}
+	}
+	
+	@Override
+	public void openEditor(String decisionName) {
+		// get the correct IFile
+		URI uri = decisionsToFiles.get(decisionName);
+		LanguageSpecificURIEditorOpener editorOpener = CustomDdlActivator.getInstance().getEditorOpener();
+		editorOpener.open(uri, true);
+		
+		// This is based on java.net.URI from an  iResource.getLocationURI()
+		
+//		if (uri != null) {
+//			System.out.println(" MDD: Opening file at " + uri.getPath());
+//			IFile[] files = getWorkspaceRoot().findFilesForLocationURI(uri);
+//			if (files.length > 0) {
+//				IFile file = files[0];
+//				IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(file.getName());
+//				IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+//				try {
+//					IEditorPart openEditor = activePage.openEditor(new FileEditorInput(file), editor.getId());
+//					if (openEditor != null && openEditor instanceof XtextEditor) {
+//						XtextEditor xEditor = (XtextEditor) openEditor;
+//						xEditor.getDocument().
+//					}
+//				} catch (PartInitException e) {
+//					System.err.println("Failed to open editor \"" + editor.getId()+ "\" for " + uri.getPath());
+//					e.printStackTrace();
+//				}
+//			}
+//		}
 	}
 	
 	
@@ -128,4 +176,5 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 			return true;
 		}
 	}
+	
 }
