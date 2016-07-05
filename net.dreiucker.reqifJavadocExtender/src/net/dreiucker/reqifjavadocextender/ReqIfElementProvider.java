@@ -28,7 +28,6 @@ import org.eclipse.rmf.reqif10.ReqIFContent;
 import org.eclipse.rmf.reqif10.SpecHierarchy;
 import org.eclipse.rmf.reqif10.SpecObject;
 import org.eclipse.rmf.reqif10.Specification;
-import org.eclipse.rmf.reqif10.pror.editor.ISpecificationEditor;
 import org.eclipse.rmf.reqif10.pror.editor.presentation.Reqif10Editor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
