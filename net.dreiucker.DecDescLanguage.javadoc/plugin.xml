@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="net.dreiucker.javadocextender.elementprovider">
+      <client
+            providerclass="net.dreiucker.decdesclanguage.javadoc.DdlElementProvider">
+      </client>
+   </extension>
+   <extension
+         point="org.eclipse.xtext.builder.participant">
+      <participant
+            class="net.dreiucker.decdesclanguage.javadoc.DdlElementProvider">
+      </participant>
+   </extension>
+
+</plugin>
