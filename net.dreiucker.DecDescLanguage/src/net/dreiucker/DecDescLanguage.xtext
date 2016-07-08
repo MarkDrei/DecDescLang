@@ -5,6 +5,12 @@ generate decDescLanguage "http://www.dreiucker.net/DecDescLanguage"
 import "http://www.omg.org/spec/ReqIF/20110401/reqif.xsd" as req
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
+
+////////////////////////////////////////////////////////////////////////////
+// Model
+////////////////////////////////////////////////////////////////////////////
+
+
 Model:
 	definitions += Definition*
 ;
@@ -12,12 +18,27 @@ Model:
 Definition:
 	(SolutionsDefinitionBlock | Assumptions | Constraints | Person | Decision)
 ;
+
+
+////////////////////////////////////////////////////////////////////////////
+// Terminal redefinition
+////////////////////////////////////////////////////////////////////////////
+
+terminal MULTI_STRING: '\'' -> '\'';
+
+NIXSTRING : (STRING | MULTI_STRING);
+
+
+
+////////////////////////////////////////////////////////////////////////////
+// Decision
+////////////////////////////////////////////////////////////////////////////
 	
 Decision:
 	'Decision' name = ID '{'
 		// Describes the issue / the motivation
 		// Clarify why it needs to be addressed.
-		'Issue:' issue = STRING
+		'Issue:' issue = NIXSTRING
 		// State of the decision
 		'Status:' status = Status
 		// The position that was selected
@@ -65,7 +86,7 @@ AbstractAssumptions: AbstractAssumption | '{'
 
 AbstractAssumption: assumption = [Assumption] | Assumption; 
 
-Assumption: (name = ID ':')? assumptionText = STRING;
+Assumption: (name = ID ':')? assumptionText = NIXSTRING;
 
 ////////////////////////////////////////////////////////////////////////////
 // Constraints
@@ -81,7 +102,7 @@ AbstractConstraints: AbstractConstraint | '{'
 
 AbstractConstraint: constraint = [Constraint] | Constraint;
 
-Constraint: (name = ID ':')? constraintText = STRING;
+Constraint: (name = ID ':')? constraintText = NIXSTRING;
 
 ////////////////////////////////////////////////////////////////////////////
 // Solutions, Alternatives
@@ -96,11 +117,12 @@ AbstractSolutions: AbstractSolution | '{'
 
 AbstractSolution: solution = [Solution] | Solution;
 
-Solution: (name = ID ':')? solutionText = STRING;
+Solution: (name = ID ':')? solutionText = NIXSTRING;
+// nach Jansen: Description, Design Rules, Design Constraints, Consequences, List of pros, list of Cons
 
 SolutionDecision: solution = AbstractSolution (reason = Reasoning)?;
 
-Reasoning: 'reasoning' reason = STRING;
+Reasoning: 'reasoning' reason = NIXSTRING;
 
 AlternativesBlock: (alternative = SolutionDecision) | ('{'
 		(alternatives += SolutionDecision)+
@@ -115,12 +137,19 @@ AbstractPerson: person = [Person] | Person;
 
 Person:
 	'Person' name=ID '{'
-		'Name:' fullname = STRING
+		'Name:' fullname = NIXSTRING
 		
 		// A unordered list of optional attributes of a person 
 		(
-			('Email:' email = STRING)? &
-			('Role:' role = STRING)?
+			('Email:' email = NIXSTRING)? &
+			('Role:' role = NIXSTRING)?
 		)
 	'}'
 ;
+
+
+
+
+
+
+
