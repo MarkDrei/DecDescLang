@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Decision Description Language Views"
+            id="net.dreiucker.DecDescLanguage.tracebility">
+      </category>
+      <view
+            name="Tracebility Matrix"
+            icon="icons/sample.gif"
+            category="net.dreiucker.DecDescLanguage.tracebility"
+            class="net.dreiucker.decdesclanguage.tracebility.views.TracebilityMatrix"
+            id="net.dreiucker.decdesclanguage.tracebility.views.TracebilityMatrix">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+
+</plugin>
