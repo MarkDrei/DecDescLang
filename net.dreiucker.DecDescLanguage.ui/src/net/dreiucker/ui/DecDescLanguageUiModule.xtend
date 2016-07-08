@@ -4,10 +4,25 @@
 package net.dreiucker.ui
 
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
+import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration
+import org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator
+import org.eclipse.xtext.ui.editor.reconciler.XtextSpellingReconcileStrategy
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
  */
 @FinalFieldsConstructor
 class DecDescLanguageUiModule extends AbstractDecDescLanguageUiModule {
+	
+	def Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration() {
+		LexicalDdlHighlighter
+	}
+	
+	def Class<? extends ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
+		SemanticalDdlHighlighter;
+	}
+	
+	def Class<? extends XtextSpellingReconcileStrategy.Factory> bindFactory() {
+		DdlSpellingStrategy.Factory;
+	}
 }

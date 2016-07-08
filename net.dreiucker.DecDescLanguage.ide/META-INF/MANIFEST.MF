@@ -7,7 +7,8 @@ Bundle-SymbolicName: net.dreiucker.DecDescLanguage.ide; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: net.dreiucker.DecDescLanguage,
  org.eclipse.xtext.ide,
- org.eclipse.xtext.xbase.ide
+ org.eclipse.xtext.xbase.ide,
+ org.eclipse.xtext.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: net.dreiucker.ide.contentassist.antlr,
  net.dreiucker.ide.contentassist.antlr.internal
