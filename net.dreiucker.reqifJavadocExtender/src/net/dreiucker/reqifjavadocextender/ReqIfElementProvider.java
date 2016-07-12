@@ -9,17 +9,10 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceProxy;
-import org.eclipse.core.resources.IResourceProxyVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.rmf.reqif10.AttributeValue;
 import org.eclipse.rmf.reqif10.AttributeValueString;
@@ -41,6 +34,8 @@ import org.eclipse.xtext.util.Tuples;
 
 import net.dreiucker.decdesclanguage.reqif.ReqifModelHelper;
 import net.dreiucker.decdesclanguage.reqif.ReqifModelHelper2;
+import net.dreiucker.emfVisitor.EmfElementHandler;
+import net.dreiucker.emfVisitor.EmfVisitor;
 import net.dreiucker.javadocextender.extensionpoint.IElementChangeListener;
 import net.dreiucker.javadocextender.extensionpoint.IElementProvider;
 
@@ -50,9 +45,13 @@ public class ReqIfElementProvider implements IElementProvider {
 	
 	private final static String EDITOR_ID = "org.eclipse.rmf.reqif10.presentation.Reqif10EditorID";
 
+	private final static String REQIF_FILE_EXTENSION = ".reqif";
+	
 	private List<IElementChangeListener> listeners = new ArrayList<>();
 	
 	private Map<String, java.net.URI> requirementToFile = new HashMap<>();
+	
+
 
 	@Override
 	public String getTag() {
@@ -61,22 +60,15 @@ public class ReqIfElementProvider implements IElementProvider {
 
 	@Override
 	public Set<String> getKnownElements() {
-		ReqifResourceCollector resourceCollector = new ReqifResourceCollector();
-
-		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-		try {
-			workspaceRoot.accept(resourceCollector, 0);
-		} catch (CoreException e) {
-			System.err.println("Failed to calculate known javadoc elements for tag " + VALID_TAG);
-			e.printStackTrace();
-		}
 		
-		ResourceSet resSet = new ResourceSetImpl();
-		Set<String> result = new HashSet<>();
-		for (IResource iRes : resourceCollector.resources) {
-			String uriString = "platform:/resource" + iRes.getFullPath().toString();
-			Resource res = resSet.getResource(URI.createURI(uriString), true);
-			for (EObject content : res.getContents()) {
+		EmfVisitor visitor = new EmfVisitor(REQIF_FILE_EXTENSION);
+		
+		final Set<String> result = new HashSet<>();
+		
+		visitor.visitAllEmfResources(new EmfElementHandler() {
+			
+			@Override
+			public void handleEmfElement(IResource iRes, EObject content, String uriString) {
 				if (content instanceof ReqIF) {
 					ReqIFContent coreContent = ((ReqIF) content).getCoreContent();
 					String idForNameAttribute = ReqifModelHelper.findIdForNameAttribute(coreContent);
@@ -89,7 +81,12 @@ public class ReqIfElementProvider implements IElementProvider {
 					}
 				}
 			}
-		}
+
+			@Override
+			public void handleResource(IResource iRes) {
+				// no op
+			}
+		});
 
 		return result;
 	}
@@ -178,36 +175,5 @@ public class ReqIfElementProvider implements IElementProvider {
 
 	private IWorkspaceRoot getWorkspaceRoot() {
 		return ResourcesPlugin.getWorkspace().getRoot();
-	}
-
-	
-	/**
-	 * Collects all {@link IResource} elements which are DDL elements
-	 * 
-	 * @author Mark
-	 *
-	 */
-	private class ReqifResourceCollector implements IResourceProxyVisitor {
-
-		private final static String DDL_FILE_EXTENSION = ".reqif";
-		private final static String FOLDER_TO_IGNOER = "bin";
-
-		public ArrayList<IResource> resources = new ArrayList<>();
-
-		@Override
-		public boolean visit(IResourceProxy proxy) throws CoreException {
-			if (proxy.getType() == IResource.FOLDER && proxy.getName().equals(FOLDER_TO_IGNOER)) {
-				return false;
-			}
-			if (proxy.getType() == IResource.FILE) {
-				if (proxy.getName().endsWith(DDL_FILE_EXTENSION)) {
-					// System.out.println("MDD: Found a DDL file: " +
-					// proxy.requestFullPath().toString());
-					resources.add(proxy.requestResource());
-				}
-				return false;
-			}
-			return true;
-		}
 	}
 }
