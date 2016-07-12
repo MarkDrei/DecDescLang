@@ -8,9 +8,10 @@ import org.eclipse.nebula.widgets.nattable.layer.DataLayer;
 public class RowHeaderLayerStack extends AbstractLayerTransform {
 
 	public RowHeaderLayerStack(IDataProvider dataProvider, BodyLayerStack body) {
-		DataLayer dataLayer = new DataLayer(dataProvider, 50, 20);
+		DataLayer dataLayer = new DataLayer(dataProvider, 150, 20);
 		RowHeaderLayer rowHeaderLayer = new RowHeaderLayer(dataLayer, body,
 				body.getSelectionLayer());
 		setUnderlyingLayer(rowHeaderLayer);
 	}
+	
 }

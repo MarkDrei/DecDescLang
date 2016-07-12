@@ -10,14 +10,17 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultColumnHeaderDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultCornerDataProvider;
-import org.eclipse.nebula.widgets.nattable.grid.data.DefaultRowHeaderDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.layer.CornerLayer;
 import org.eclipse.nebula.widgets.nattable.grid.layer.GridLayer;
 import org.eclipse.nebula.widgets.nattable.layer.DataLayer;
+import org.eclipse.nebula.widgets.nattable.resize.command.InitializeAutoResizeColumnsCommand;
+import org.eclipse.nebula.widgets.nattable.util.GCFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.ISharedImages;
@@ -25,9 +28,9 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
+import net.dreiucker.decdesclanguage.tracebility.data.BodyDataProvider;
 import net.dreiucker.decdesclanguage.tracebility.data.DataCollector;
 import net.dreiucker.decdesclanguage.tracebility.data.RowHeaderDataProvider;
-import net.dreiucker.decdesclanguage.tracebility.data.BodyDataProvider;
 
 public class TracebilityMatrix extends ViewPart {
 
@@ -85,11 +88,26 @@ public class TracebilityMatrix extends ViewPart {
 		DefaultCornerDataProvider cornerDataProvider = new DefaultCornerDataProvider(columnHeaderDataProvider,
 				rowHeaderDataProvider);
 
-		CornerLayer cornerLayer = new CornerLayer(new DataLayer(cornerDataProvider), rowHeaderLayer, columnHeaderLayer);
+		CornerLayer cornerLayer = new CornerLayer(new DataLayer(cornerDataProvider, 100, 100), rowHeaderLayer, columnHeaderLayer);
 
 		GridLayer gridLayer = new GridLayer(body, columnHeaderLayer, rowHeaderLayer, cornerLayer);
 
-		new NatTable(parent, gridLayer);
+		final NatTable natTable = new NatTable(parent, gridLayer);
+
+		// resize the row after the paint event (credits to the NatTable FAQ)
+		natTable.addListener(SWT.Paint, new Listener() {
+
+			@Override
+			public void handleEvent(Event arg0) {
+				for (int i = 0; i < natTable.getColumnCount(); i++) {
+					InitializeAutoResizeColumnsCommand columnCommand = new InitializeAutoResizeColumnsCommand(natTable,
+							i, natTable.getConfigRegistry(), new GCFactory(natTable));
+					natTable.doCommand(columnCommand);
+				}
+				
+				natTable.removeListener(SWT.Paint, this);
+			}
+		});
 	}
 
 	private void hookContextMenu(Control parent) {

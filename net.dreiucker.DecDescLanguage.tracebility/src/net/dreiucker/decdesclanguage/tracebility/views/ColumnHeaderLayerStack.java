@@ -13,4 +13,5 @@ public class ColumnHeaderLayerStack extends AbstractLayerTransform {
 				body.getSelectionLayer());
 		setUnderlyingLayer(colHeaderLayer);
 	}
+	
 }
