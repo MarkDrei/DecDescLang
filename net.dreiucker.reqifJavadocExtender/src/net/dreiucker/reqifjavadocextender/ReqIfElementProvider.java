@@ -14,8 +14,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.rmf.reqif10.AttributeValue;
-import org.eclipse.rmf.reqif10.AttributeValueString;
 import org.eclipse.rmf.reqif10.ReqIF;
 import org.eclipse.rmf.reqif10.ReqIFContent;
 import org.eclipse.rmf.reqif10.SpecHierarchy;
@@ -34,7 +32,7 @@ import org.eclipse.xtext.util.Tuples;
 
 import net.dreiucker.decdesclanguage.reqif.ReqifModelHelper;
 import net.dreiucker.decdesclanguage.reqif.ReqifModelHelper2;
-import net.dreiucker.emfVisitor.EmfElementHandler;
+import net.dreiucker.emfVisitor.AEmfElementHandler;
 import net.dreiucker.emfVisitor.EmfVisitor;
 import net.dreiucker.javadocextender.extensionpoint.IElementChangeListener;
 import net.dreiucker.javadocextender.extensionpoint.IElementProvider;
@@ -65,7 +63,7 @@ public class ReqIfElementProvider implements IElementProvider {
 		
 		final Set<String> result = new HashSet<>();
 		
-		visitor.visitAllEmfResources(new EmfElementHandler() {
+		visitor.visitAllEmfResources(new AEmfElementHandler() {
 			
 			@Override
 			public void handleEmfElement(IResource iRes, EObject content, String uriString) {
@@ -73,7 +71,7 @@ public class ReqIfElementProvider implements IElementProvider {
 					ReqIFContent coreContent = ((ReqIF) content).getCoreContent();
 					String idForNameAttribute = ReqifModelHelper.findIdForNameAttribute(coreContent);
 					for (SpecObject o : coreContent.getSpecObjects()) {
-						String id = extractID(idForNameAttribute, o);
+						String id = ReqifModelHelper2.extractID(idForNameAttribute, o);
 						if (id != null) {
 							result.add(id);
 							requirementToFile.put(id, iRes.getLocationURI());
@@ -81,38 +79,9 @@ public class ReqIfElementProvider implements IElementProvider {
 					}
 				}
 			}
-
-			@Override
-			public void handleResource(IResource iRes) {
-				// no op
-			}
 		});
 
 		return result;
-	}
-
-	/**
-	 * Extracts the ID of the spec object
-	 * 
-	 * @param idForNameAttribute
-	 *            The UUID String that identifies the attribute which contains
-	 *            the ID field
-	 * @param specObject
-	 *            The {@link SpecObject} whose ID is required
-	 *            
-	 * @return The extracted ID or null, if none was found
-	 */
-	private String extractID(String idForNameAttribute, SpecObject specObject) {
-		EList<AttributeValue> values = specObject.getValues();
-		for (AttributeValue value : values) {
-			if (value instanceof AttributeValueString) {
-				String attributeID = ((AttributeValueString) value).getDefinition().getIdentifier();
-				if (attributeID.equals(idForNameAttribute)) {
-					return ((AttributeValueString) value).getTheValue();
-				}
-			}
-		}
-		return null;
 	}
 
 	@Override

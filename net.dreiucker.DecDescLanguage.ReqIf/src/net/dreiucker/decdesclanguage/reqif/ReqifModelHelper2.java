@@ -63,4 +63,28 @@ public class ReqifModelHelper2 {
 		}
 		return null;
 	}
+	
+	/**
+	 * Extracts the ID of the spec object
+	 * 
+	 * @param idForNameAttribute
+	 *            The UUID String that identifies the attribute which contains
+	 *            the ID field
+	 * @param specObject
+	 *            The {@link SpecObject} whose ID is required
+	 *            
+	 * @return The extracted ID or <code>null</code>, if none was found
+	 */
+	public static String extractID(String idForNameAttribute, SpecObject specObject) {
+		EList<AttributeValue> values = specObject.getValues();
+		for (AttributeValue value : values) {
+			if (value instanceof AttributeValueString) {
+				String attributeID = ((AttributeValueString) value).getDefinition().getIdentifier();
+				if (attributeID.equals(idForNameAttribute)) {
+					return ((AttributeValueString) value).getTheValue();
+				}
+			}
+		}
+		return null;
+	}
 }

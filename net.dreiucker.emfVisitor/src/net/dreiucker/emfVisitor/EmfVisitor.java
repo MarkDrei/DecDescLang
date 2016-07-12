@@ -37,7 +37,7 @@ public class EmfVisitor {
 	 * @param elementHandler
 	 *            The handler who gets to decide what to do with these resources
 	 */
-	public void visitAllEmfResources(EmfElementHandler elementHandler) {
+	public void visitAllEmfResources(IEmfElementHandler elementHandler) {
 
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		try {

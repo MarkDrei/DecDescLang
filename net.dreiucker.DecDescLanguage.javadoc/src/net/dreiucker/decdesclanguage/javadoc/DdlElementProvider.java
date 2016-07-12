@@ -19,7 +19,7 @@ import net.dreiucker.decDescLanguage.Decision;
 import net.dreiucker.decDescLanguage.Definition;
 import net.dreiucker.decDescLanguage.Model;
 import net.dreiucker.decDescLanguage.impl.ModelImpl;
-import net.dreiucker.emfVisitor.EmfElementHandler;
+import net.dreiucker.emfVisitor.AEmfElementHandler;
 import net.dreiucker.emfVisitor.EmfVisitor;
 import net.dreiucker.javadocextender.extensionpoint.IElementChangeListener;
 import net.dreiucker.javadocextender.extensionpoint.IElementProvider;
@@ -54,7 +54,7 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 		
 		final Set<String> result = new HashSet<>();
 		
-		visitor.visitAllEmfResources(new EmfElementHandler() {
+		visitor.visitAllEmfResources(new AEmfElementHandler() {
 			
 			private int definitionIndex = -1;
 			
