@@ -1,32 +1,45 @@
 package net.dreiucker.decdesclanguage.tracebility.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
+import org.eclipse.xtext.util.Pair;
+import org.eclipse.xtext.util.Tuples;
 
 public class BodyDataProvider implements IDataProvider {
 	
-	List<String> columnHeaders = new ArrayList<>();
-	List<String> rowHeaders = new ArrayList<>();
+	List<String> requirementColumnHeaders = new ArrayList<>();
+	List<String> decisionRowHeaders = new ArrayList<>();
+	
+	/**
+	 * (Index of decision / index of Requirement) -> True if there is a usage of that requirement 
+	 */
+	Map<Pair<Integer, Integer>, Boolean> decisionRefersToReq = new HashMap<>();;
 	
 	public BodyDataProvider() {
 	}
 	
 	@Override
 	public int getColumnCount() {
-		return columnHeaders.size();
+		return requirementColumnHeaders.size();
 	}
 	
 	@Override
 	public int getRowCount() {
-		return rowHeaders.size();
+		return decisionRowHeaders.size();
 	}
 	
 
 	@Override
 	public Object getDataValue(int columnIndex, int rowIndex) {
-		return columnHeaders.get(columnIndex) + "  /  " + rowHeaders.get(rowIndex);
+		Boolean hasReference = decisionRefersToReq.get(Tuples.create(Integer.valueOf(rowIndex), Integer.valueOf(columnIndex)));
+		if (hasReference != null && hasReference.equals(Boolean.TRUE)) {
+			return "hasReference";
+		}
+		return "";
 	}
 
 	@Override
@@ -35,11 +48,11 @@ public class BodyDataProvider implements IDataProvider {
 	}
 
 	public String[] getColumnHeaders() {
-		return columnHeaders.toArray(new String[columnHeaders.size()]);
+		return requirementColumnHeaders.toArray(new String[requirementColumnHeaders.size()]);
 	}
 	
 	public String[] getRowHeaders() {
-		return rowHeaders.toArray(new String[rowHeaders.size()]);
+		return decisionRowHeaders.toArray(new String[decisionRowHeaders.size()]);
 	}
 	
 	

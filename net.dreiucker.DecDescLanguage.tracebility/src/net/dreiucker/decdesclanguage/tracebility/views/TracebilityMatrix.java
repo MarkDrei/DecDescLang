@@ -1,5 +1,8 @@
 package net.dreiucker.decdesclanguage.tracebility.views;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -7,6 +10,7 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultColumnHeaderDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultCornerDataProvider;
@@ -17,7 +21,6 @@ import org.eclipse.nebula.widgets.nattable.resize.command.InitializeAutoResizeCo
 import org.eclipse.nebula.widgets.nattable.util.GCFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -28,6 +31,7 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
+import net.dreiucker.decdesclanguage.tracebility.Activator;
 import net.dreiucker.decdesclanguage.tracebility.data.BodyDataProvider;
 import net.dreiucker.decdesclanguage.tracebility.data.DataCollector;
 import net.dreiucker.decdesclanguage.tracebility.data.RowHeaderDataProvider;
@@ -39,6 +43,9 @@ public class TracebilityMatrix extends ViewPart {
 	 */
 	public static final String ID = "net.dreiucker.decdesclanguage.tracebility.views.TracebilityMatrix";
 
+	private Composite viewComposite;
+	private NatTable natTable = null;
+	
 	private Action action1;
 	private Action action2;
 
@@ -53,27 +60,40 @@ public class TracebilityMatrix extends ViewPart {
 	 * it.
 	 */
 	public void createPartControl(final Composite parent) {
-		final Label label = new Label(parent, SWT.NONE);
+		viewComposite = parent;
+		updatePartControl();
+
+		// Create the help context id for the viewer's control
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, "net.dreiucker.DecDescLanguage.tracebility.viewer");
+		hookContextMenu();
+		makeActions();
+		contributeToActionBars();
+	}
+
+	/**
+	 * Triggers the creation of a new matrix
+	 * @param parent
+	 */
+	private void updatePartControl() {
+		if (natTable != null) {
+			natTable.dispose();
+		}
+		
+		final Label label = new Label(viewComposite, SWT.NONE);
 		label.setText("Please wait while data is being populated...");
 
 		final BodyDataProvider dataProvider = new BodyDataProvider();
-		new DataCollector(dataProvider, parent.getDisplay(), new Runnable() {
+		new DataCollector(dataProvider, viewComposite.getDisplay(), new Runnable() {
 
 			@Override
 			public void run() {
 				// delete the old content
 				label.dispose();
 				// generate the new content
-				createTableWidget(parent, dataProvider);
-				parent.layout();
+				createTableWidget(viewComposite, dataProvider);
+				viewComposite.layout();
 			}
 		}).schedule();
-
-		// Create the help context id for the viewer's control
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, "net.dreiucker.DecDescLanguage.tracebility.viewer");
-		hookContextMenu(parent);
-		makeActions(parent);
-		contributeToActionBars();
 	}
 
 	private void createTableWidget(final Composite parent, final BodyDataProvider dataProvider) {
@@ -92,7 +112,7 @@ public class TracebilityMatrix extends ViewPart {
 
 		GridLayer gridLayer = new GridLayer(body, columnHeaderLayer, rowHeaderLayer, cornerLayer);
 
-		final NatTable natTable = new NatTable(parent, gridLayer);
+		natTable = new NatTable(parent, gridLayer);
 
 		// resize the row after the paint event (credits to the NatTable FAQ)
 		natTable.addListener(SWT.Paint, new Listener() {
@@ -110,7 +130,7 @@ public class TracebilityMatrix extends ViewPart {
 		});
 	}
 
-	private void hookContextMenu(Control parent) {
+	private void hookContextMenu() {
 		MenuManager menuMgr = new MenuManager("#PopupMenu");
 		menuMgr.setRemoveAllWhenShown(true);
 		menuMgr.addMenuListener(new IMenuListener() {
@@ -118,10 +138,8 @@ public class TracebilityMatrix extends ViewPart {
 				TracebilityMatrix.this.fillContextMenu(manager);
 			}
 		});
-		Menu menu = menuMgr.createContextMenu(parent);
-		parent.setMenu(menu);
-		// TODO
-		// getSite().registerContextMenu(menuMgr, table);
+		Menu menu = menuMgr.createContextMenu(viewComposite);
+		viewComposite.setMenu(menu);
 	}
 
 	private void contributeToActionBars() {
@@ -148,20 +166,20 @@ public class TracebilityMatrix extends ViewPart {
 		manager.add(action2);
 	}
 
-	private void makeActions(final Control parent) {
+	private void makeActions() {
 		action1 = new Action() {
 			public void run() {
-				showMessage("Action 1 executed", parent);
+				updatePartControl();
 			}
 		};
-		action1.setText("Action 1");
-		action1.setToolTipText("Action 1 tooltip");
-		action1.setImageDescriptor(
-				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		action1.setText("Refresh");
+		action1.setToolTipText("Refresh the tracebility matrix");
+
+		action1.setImageDescriptor(Activator.getImageDescriptor("icons/refresh.gif"));
 
 		action2 = new Action() {
 			public void run() {
-				showMessage("Action 2 executed", parent);
+				showMessage("Action 2 executed");
 			}
 		};
 		action2.setText("Action 2");
@@ -170,8 +188,8 @@ public class TracebilityMatrix extends ViewPart {
 				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 	}
 
-	private void showMessage(String message, Control parent) {
-		MessageDialog.openInformation(parent.getShell(), "Tracebility Matrix", message);
+	private void showMessage(String message) {
+		MessageDialog.openInformation(viewComposite.getShell(), "Tracebility Matrix", message);
 	}
 
 	/**

@@ -151,12 +151,12 @@ Person:
 // Requirements
 ////////////////////////////////////////////////////////////////////////////
 
-AbstractRequirements: AbstractRequirement | '{'
+AbstractRequirements: requirements += AbstractRequirement | '{'
 		(requirements += AbstractRequirement)+
 	'}'
 ;
 
-AbstractRequirement: Requirement;
+AbstractRequirement: requirement = Requirement;
 
 Requirement: (ref = [req::SpecObject|FQN]);
 

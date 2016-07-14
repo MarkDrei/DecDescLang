@@ -14,7 +14,10 @@ import org.eclipse.rmf.reqif10.ReqIF;
 import org.eclipse.rmf.reqif10.ReqIFContent;
 import org.eclipse.rmf.reqif10.SpecObject;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.xtext.util.Tuples;
 
+import net.dreiucker.decDescLanguage.AbstractRequirement;
+import net.dreiucker.decDescLanguage.AbstractRequirements;
 import net.dreiucker.decDescLanguage.Decision;
 import net.dreiucker.decDescLanguage.Definition;
 import net.dreiucker.decDescLanguage.Model;
@@ -25,7 +28,7 @@ import net.dreiucker.emfVisitor.EmfVisitor;
 
 public class DataCollector extends Job {
 
-	protected static final boolean DEBUG = false;
+	protected static final boolean DEBUG = true;
 	
 	private static final String DDL_FILE_EXTENSION = ".ddl";
 	private final static String REQIF_FILE_EXTENSION = ".reqif";
@@ -74,38 +77,7 @@ public class DataCollector extends Job {
 		
 	}
 
-	private void collectDecisions(final IProgressMonitor monitor) {
-		EmfVisitor emfVisitor = new EmfVisitor(DDL_FILE_EXTENSION);
-		
-		final Set<String> result = new HashSet<>();
-		
-		emfVisitor.visitAllEmfResources(new AEmfElementHandler() {
-			
-			@Override
-			public boolean shallContinue() {
-				return !monitor.isCanceled();
-			}
 
-			@Override
-			public void handleEmfElement(IResource iRes, EObject content, String uriString) {
-				if (content instanceof Model) {
-					EList<Definition> definitions = ((Model) content).getDefinitions();
-					for (Definition definition : definitions) {
-						if (definition instanceof Decision) {
-							if (DEBUG) {
-								System.out.println("MDD Found definition: " + ((Decision) definition).getName());
-							}
-							
-							result.add(((Decision) definition).getName());
-						}
-					}
-				}
-			}
-		});
-		
-		dataProvider.rowHeaders.addAll(result);
-		
-	}
 
 	private void collectRequirements(final IProgressMonitor monitor) {
 		
@@ -138,7 +110,85 @@ public class DataCollector extends Job {
 			}
 		});
 		
-		dataProvider.columnHeaders.addAll(result);
+		dataProvider.requirementColumnHeaders.addAll(result);
+	}
+	
+	/**
+	 * Collect the decisions and the mappings to the Requirements.
+	 * Note that requirements must have been collected first or else the references will not be
+	 * collectible
+	 * 
+	 * @param monitor
+	 */
+	private void collectDecisions(final IProgressMonitor monitor) {
+		EmfVisitor emfVisitor = new EmfVisitor(DDL_FILE_EXTENSION);
+		
+		final Set<String> result = new HashSet<>();
+		
+		emfVisitor.visitAllEmfResources(new AEmfElementHandler() {
+			
+			@Override
+			public boolean shallContinue() {
+				return !monitor.isCanceled();
+			}
+
+			@Override
+			public void handleEmfElement(IResource iRes, EObject content, String uriString) {
+				if (content instanceof Model) {
+					EList<Definition> definitions = ((Model) content).getDefinitions();
+					for (Definition definition : definitions) {
+						if (definition instanceof Decision) {
+							Decision decision = (Decision) definition;
+							if (DEBUG) {
+								System.out.println("MDD Found definition: " + decision.getName());
+							}
+							dataProvider.decisionRowHeaders.add(((Decision) definition).getName());
+							
+							AbstractRequirements requirements = decision.getRequirement();
+							if(requirements != null) {
+								EList<AbstractRequirement> requirements2 = requirements.getRequirements();
+								if (requirements2 != null) {
+									for (AbstractRequirement requirement : requirements2) {
+										SpecObject ref = requirement.getRequirement().getRef();
+										if (ref != null) {
+											String id = ReqifModelHelper2.extractID(ref);
+											enterReferenceToMatrix(id);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			/**
+			 * 
+			 * @param id The ID / name of the reference
+			 */
+			private void enterReferenceToMatrix(String id) {
+				if (id != null) {
+					// Found a concrete reference, now add it to the data provider
+					int index = dataProvider.requirementColumnHeaders.indexOf(id);
+					
+					if (index < 0) {
+						System.err.println("Unable to find requirement \"" + id + "\" in the Tracebility Matrix");
+					} else {
+						if (DEBUG) {
+							System.out.println("Entering reference in cell " + dataProvider.decisionRowHeaders.size() + "/" + index);
+						}
+						dataProvider.decisionRefersToReq.put(
+								Tuples.create(
+										Integer.valueOf(dataProvider.decisionRowHeaders.size()),
+										Integer.valueOf(index)),
+								Boolean.TRUE);
+					}
+				}
+			}
+		});
+		
+		dataProvider.decisionRowHeaders.addAll(result);
+		
 	}
 
 }
