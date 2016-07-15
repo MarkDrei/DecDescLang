@@ -50,6 +50,7 @@ public class EmfVisitor {
 
 		ResourceSet resSet = new ResourceSetImpl();
 		for (IResource iRes : resourceCollector.getResources()) {
+			elementHandler.handleResource(iRes);
 			String uriString = "platform:/resource" + iRes.getFullPath().toString();
 			Resource res = resSet.getResource(URI.createURI(uriString), true);
 			for (EObject content : res.getContents()) {

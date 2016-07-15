@@ -13,7 +13,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.builder.IXtextBuilderParticipant;
-import org.eclipse.xtext.ui.editor.LanguageSpecificURIEditorOpener;
 
 import net.dreiucker.decDescLanguage.Decision;
 import net.dreiucker.decDescLanguage.Definition;
@@ -116,8 +115,7 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 	public void openEditor(String decisionName) {
 		// get the correct IFile
 		URI uri = decisionsToFiles.get(decisionName);
-		LanguageSpecificURIEditorOpener editorOpener = CustomDdlActivator.getInstance().getEditorOpener();
-		editorOpener.open(uri, true);
+		CustomDdlActivator.getInstance().openDdlEditor(uri);
 	}
 	
 

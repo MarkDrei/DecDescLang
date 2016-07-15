@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.rmf.reqif10.ReqIF;
 import org.eclipse.rmf.reqif10.ReqIFContent;
@@ -25,6 +26,7 @@ import net.dreiucker.decdesclanguage.reqif.ReqifModelHelper;
 import net.dreiucker.decdesclanguage.reqif.ReqifModelHelper2;
 import net.dreiucker.emfVisitor.AEmfElementHandler;
 import net.dreiucker.emfVisitor.EmfVisitor;
+import net.dreiucker.emfVisitor.IEmfElementHandler;
 
 public class DataCollector extends Job {
 
@@ -125,11 +127,18 @@ public class DataCollector extends Job {
 		
 		final Set<String> result = new HashSet<>();
 		
-		emfVisitor.visitAllEmfResources(new AEmfElementHandler() {
+		emfVisitor.visitAllEmfResources(new IEmfElementHandler() {
+			
+			private int definitionIndex = -1;
 			
 			@Override
 			public boolean shallContinue() {
 				return !monitor.isCanceled();
+			}
+			
+			@Override
+			public void handleResource(IResource iRes) {
+				definitionIndex = -1;
 			}
 
 			@Override
@@ -138,24 +147,36 @@ public class DataCollector extends Job {
 					EList<Definition> definitions = ((Model) content).getDefinitions();
 					for (Definition definition : definitions) {
 						if (definition instanceof Decision) {
+							definitionIndex++;
 							Decision decision = (Decision) definition;
 							if (DEBUG) {
-								System.out.println("MDD Found definition: " + decision.getName());
+								System.out.println("MDD Found decision: " + decision.getName());
 							}
 							dataProvider.decisionRowHeaders.add(((Decision) definition).getName());
 							
-							AbstractRequirements requirements = decision.getRequirement();
-							if(requirements != null) {
-								EList<AbstractRequirement> requirements2 = requirements.getRequirements();
-								if (requirements2 != null) {
-									for (AbstractRequirement requirement : requirements2) {
-										SpecObject ref = requirement.getRequirement().getRef();
-										if (ref != null) {
-											String id = ReqifModelHelper2.extractID(ref);
-											enterReferenceToMatrix(id);
-										}
-									}
-								}
+							String definitionUri = uriString + "#//@definitions." + definitionIndex;
+							dataProvider.decisionsToFiles.put(decision.getName(), URI.createURI(definitionUri));
+							
+							collectReferencedRequirements(decision);
+						}
+					}
+				}
+			}
+
+			/**
+			 * collect the requirements that are referenced by this decision
+			 * @param decision
+			 */
+			private void collectReferencedRequirements(Decision decision) {
+				AbstractRequirements requirements = decision.getRequirement();
+				if(requirements != null) {
+					EList<AbstractRequirement> requirements2 = requirements.getRequirements();
+					if (requirements2 != null) {
+						for (AbstractRequirement requirement : requirements2) {
+							SpecObject ref = requirement.getRequirement().getRef();
+							if (ref != null) {
+								String id = ReqifModelHelper2.extractID(ref);
+								enterReferenceToMatrix(id);
 							}
 						}
 					}

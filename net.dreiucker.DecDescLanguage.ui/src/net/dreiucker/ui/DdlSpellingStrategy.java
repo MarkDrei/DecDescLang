@@ -72,7 +72,6 @@ public class DdlSpellingStrategy extends XtextSpellingReconcileStrategy {
 					// step width of two: we always have "string" -> "none string" -> "string" ...
 					if (indexIntoString % 2 == 0 && stringLength > 0) {
 						result.add(new TypedRegion(currentOffset, stringLength, STRING_LITERAL_PARTITION));
-						// TODO remove
 //						System.out.println(" MDD Adding region: " + strings[indexIntoString]);
 					}
 					currentOffset += stringLength + 1; // +1 because we skip the quote ( ' )

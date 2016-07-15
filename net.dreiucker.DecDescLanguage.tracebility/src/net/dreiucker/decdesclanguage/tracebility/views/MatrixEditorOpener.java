@@ -1,14 +1,15 @@
 package net.dreiucker.decdesclanguage.tracebility.views;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.nebula.widgets.nattable.NatTable;
-import org.eclipse.nebula.widgets.nattable.layer.cell.ILayerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 
 import net.dreiucker.decdesclanguage.tracebility.data.BodyDataProvider;
+import net.dreiucker.ui.CustomDdlActivator;
 
-public class EditorOpener implements MouseListener {
+public class MatrixEditorOpener implements MouseListener {
 
 	private BodyDataProvider dataProvider;
 	private NatTable table;
@@ -16,7 +17,7 @@ public class EditorOpener implements MouseListener {
 	int mouseDownX = -1;
 	int mouseDownY = -1;
 
-	public EditorOpener(NatTable natTable, BodyDataProvider dataProvider) {
+	public MatrixEditorOpener(NatTable natTable, BodyDataProvider dataProvider) {
 		this.table = natTable;
 		this.dataProvider = dataProvider;
 		natTable.addMouseListener(this);
@@ -41,11 +42,15 @@ public class EditorOpener implements MouseListener {
 			
 			if (row == 0 && column > 0) {
 				Object requirement = table.getCellByPosition(column, row).getDataValue().toString();
-				System.out.println("Navigage to requirement " + requirement);
+//				System.out.println("Navigage to requirement " + requirement);
 			}
 			else if (row > 0 && column == 0) {
-				Object decision = table.getCellByPosition(column, row).getDataValue().toString();
-				System.out.println("Navigage to decision " + decision);
+				String decision = table.getCellByPosition(column, row).getDataValue().toString();
+//				System.out.println("Navigage to decision " + decision);
+				URI uri = dataProvider.getDecisionUri(decision);
+				if (uri != null) {
+					CustomDdlActivator.getInstance().openDdlEditor(uri);
+				}
 			}
 		}
 		

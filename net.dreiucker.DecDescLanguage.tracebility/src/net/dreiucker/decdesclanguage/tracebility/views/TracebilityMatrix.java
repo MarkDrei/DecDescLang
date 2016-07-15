@@ -42,7 +42,7 @@ public class TracebilityMatrix extends ViewPart {
 	private Composite viewComposite;
 	private NatTable natTable = null;
 	
-	private EditorOpener editorOpener;
+	private MatrixEditorOpener editorOpener;
 	
 	private Action action1;
 	private Action action2;
@@ -114,7 +114,7 @@ public class TracebilityMatrix extends ViewPart {
 		GridLayer gridLayer = new GridLayer(body, columnHeaderLayer, rowHeaderLayer, cornerLayer);
 
 		natTable = new NatTable(parent, gridLayer);
-		editorOpener = new EditorOpener(natTable, dataProvider);
+		editorOpener = new MatrixEditorOpener(natTable, dataProvider);
 
 		// resize the row after the paint event (credits to the NatTable FAQ)
 		natTable.addListener(SWT.Paint, new Listener() {

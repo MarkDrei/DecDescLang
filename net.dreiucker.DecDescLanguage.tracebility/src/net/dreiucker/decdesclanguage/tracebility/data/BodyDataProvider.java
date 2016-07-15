@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
 import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.Tuples;
@@ -18,6 +19,9 @@ public class BodyDataProvider implements IDataProvider {
 	 * (Index of decision / index of Requirement) -> True if there is a usage of that requirement 
 	 */
 	Map<Pair<Integer, Integer>, Boolean> decisionRefersToReq = new HashMap<>();;
+	
+	// Buffers the relation from "ddl decision" to the file path it is contained in
+	Map<String, URI> decisionsToFiles = new HashMap<>();
 	
 	public BodyDataProvider() {
 	}
@@ -53,6 +57,10 @@ public class BodyDataProvider implements IDataProvider {
 	
 	public String[] getRowHeaders() {
 		return decisionRowHeaders.toArray(new String[decisionRowHeaders.size()]);
+	}
+
+	public URI getDecisionUri(String decision) {
+		return decisionsToFiles.get(decision);
 	}
 	
 	

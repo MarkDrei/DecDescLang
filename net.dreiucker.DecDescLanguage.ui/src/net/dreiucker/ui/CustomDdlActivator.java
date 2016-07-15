@@ -1,5 +1,6 @@
 package net.dreiucker.ui;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.ui.editor.LanguageSpecificURIEditorOpener;
 
 import com.google.inject.Inject;
@@ -7,17 +8,13 @@ import com.google.inject.Inject;
 import net.dreiucker.DecDescLanguage.ui.internal.DecDescLanguageActivator;
 
 /**
- * 
- * @FIXME
- * This is a dirty hack in order to get the injected stuff which works in this
- * plug in, but does not in the others without (significant?) effort.
- * Correct would be to inject the stuff with Guice, but at the moment I am not aware
- * how to do that
  *  
  * @author Mark
  *
  */
 public class CustomDdlActivator extends DecDescLanguageActivator {
+
+	private static final boolean DEBUG = false;
 
 	private static CustomDdlActivator instance;
 	
@@ -36,5 +33,12 @@ public class CustomDdlActivator extends DecDescLanguageActivator {
 	
 	public LanguageSpecificURIEditorOpener getEditorOpener() {
 		return editorOpener;
+	}
+
+	public void openDdlEditor(URI uri) {
+		if (DEBUG) {
+			System.out.println("Opening DDL-Editor for " + uri.toString());
+		}
+		editorOpener.open(uri, true);
 	}
 }

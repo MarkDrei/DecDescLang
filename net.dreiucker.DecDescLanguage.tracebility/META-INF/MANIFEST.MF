@@ -13,7 +13,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore,
  org.eclipse.rmf.reqif10,
  net.dreiucker.DecDescLanguage.ReqIf,
- org.eclipse.xtext.util
+ org.eclipse.xtext.util,
+ org.eclipse.emf.common,
+ net.dreiucker.DecDescLanguage.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: net.dreiucker.decDescLanguage
