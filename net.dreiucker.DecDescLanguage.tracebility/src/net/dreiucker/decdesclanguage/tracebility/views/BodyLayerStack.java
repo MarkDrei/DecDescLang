@@ -21,9 +21,9 @@ public class BodyLayerStack extends AbstractLayerTransform {
 		RowReorderLayer rowReorderLayer = new RowReorderLayer(columnReorderLayer);
 		
 		// allow selection
-		this.selectionLayer = new SelectionLayer(rowReorderLayer);
+//		this.selectionLayer = new SelectionLayer(rowReorderLayer);
 		
-		ViewportLayer viewportLayer = new ViewportLayer(this.selectionLayer);
+		ViewportLayer viewportLayer = new ViewportLayer(rowReorderLayer);
 		setUnderlyingLayer(viewportLayer);
 	}
 

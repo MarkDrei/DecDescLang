@@ -42,6 +42,8 @@ public class TracebilityMatrix extends ViewPart {
 	private Composite viewComposite;
 	private NatTable natTable = null;
 	
+	private EditorOpener editorOpener;
+	
 	private Action action1;
 	private Action action2;
 
@@ -72,6 +74,9 @@ public class TracebilityMatrix extends ViewPart {
 	 */
 	private void updatePartControl() {
 		if (natTable != null) {
+			if (editorOpener != null) {
+				natTable.removeMouseListener(editorOpener);
+			}
 			natTable.dispose();
 		}
 		
@@ -109,6 +114,7 @@ public class TracebilityMatrix extends ViewPart {
 		GridLayer gridLayer = new GridLayer(body, columnHeaderLayer, rowHeaderLayer, cornerLayer);
 
 		natTable = new NatTable(parent, gridLayer);
+		editorOpener = new EditorOpener(natTable, dataProvider);
 
 		// resize the row after the paint event (credits to the NatTable FAQ)
 		natTable.addListener(SWT.Paint, new Listener() {
