@@ -30,7 +30,7 @@ import net.dreiucker.emfVisitor.IEmfElementHandler;
 
 public class DataCollector extends Job {
 
-	protected static final boolean DEBUG = true;
+	protected static final boolean DEBUG = false;
 	
 	private static final String DDL_FILE_EXTENSION = ".ddl";
 	private final static String REQIF_FILE_EXTENSION = ".reqif";
@@ -158,7 +158,7 @@ public class DataCollector extends Job {
 							String definitionUri = uriString + "#//@definitions." + definitionIndex;
 							dataProvider.decisionsToFiles.put(decision.getName(), URI.createURI(definitionUri));
 							
-							collectReferencedRequirements(decision);
+							collectReferencedRequirements(decision, uriString);
 						}
 					}
 				}
@@ -167,8 +167,9 @@ public class DataCollector extends Job {
 			/**
 			 * collect the requirements that are referenced by this decision
 			 * @param decision
+			 * @param definitionUri 
 			 */
-			private void collectReferencedRequirements(Decision decision) {
+			private void collectReferencedRequirements(Decision decision, String fileUri) {
 				AbstractRequirements requirements = decision.getRequirement();
 				if(requirements != null) {
 					EList<AbstractRequirement> requirements2 = requirements.getRequirements();
@@ -177,7 +178,8 @@ public class DataCollector extends Job {
 							SpecObject ref = requirement.getRequirement().getRef();
 							if (ref != null) {
 								String id = ReqifModelHelper2.extractID(ref);
-								enterReferenceToMatrix(id);
+								String decisionUri = fileUri + "#" + requirement.eResource().getURIFragment(requirement);
+								enterReferenceToMatrix(id, decisionUri);
 							}
 						}
 					}
@@ -187,8 +189,9 @@ public class DataCollector extends Job {
 			/**
 			 * 
 			 * @param id The ID / name of the reference
+			 * @param definitionUri 
 			 */
-			private void enterReferenceToMatrix(String id) {
+			private void enterReferenceToMatrix(String id, String definitionUri) {
 				if (id != null) {
 					// Found a concrete reference, now add it to the data provider
 					int index = dataProvider.requirementColumnHeaders.indexOf(id);
@@ -199,11 +202,13 @@ public class DataCollector extends Job {
 						if (DEBUG) {
 							System.out.println("Entering reference in cell " + dataProvider.decisionRowHeaders.size() + "/" + index);
 						}
+						URI uri = URI.createURI(definitionUri);
+						
 						dataProvider.decisionRefersToReq.put(
 								Tuples.create(
 										Integer.valueOf(dataProvider.decisionRowHeaders.size()),
 										Integer.valueOf(index)),
-								Boolean.TRUE);
+								uri);
 					}
 				}
 			}

@@ -18,7 +18,7 @@ public class BodyDataProvider implements IDataProvider {
 	/**
 	 * (Index of decision / index of Requirement) -> True if there is a usage of that requirement 
 	 */
-	Map<Pair<Integer, Integer>, Boolean> decisionRefersToReq = new HashMap<>();;
+	Map<Pair<Integer, Integer>, URI> decisionRefersToReq = new HashMap<>();;
 	
 	// Buffers the relation from "ddl decision" to the file path it is contained in
 	Map<String, URI> decisionsToFiles = new HashMap<>();
@@ -42,11 +42,15 @@ public class BodyDataProvider implements IDataProvider {
 
 	@Override
 	public Object getDataValue(int columnIndex, int rowIndex) {
-		Boolean hasReference = decisionRefersToReq.get(Tuples.create(Integer.valueOf(rowIndex), Integer.valueOf(columnIndex)));
-		if (hasReference != null && hasReference.equals(Boolean.TRUE)) {
+		URI hasReference = decisionRefersToReq.get(Tuples.create(Integer.valueOf(rowIndex), Integer.valueOf(columnIndex)));
+		if (hasReference != null) {
 			return "hasReference";
 		}
 		return "";
+	}
+	
+	public URI getURI(int columnIndex, int rowIndex) {
+		return decisionRefersToReq.get(Tuples.create(Integer.valueOf(rowIndex), Integer.valueOf(columnIndex)));
 	}
 
 	@Override

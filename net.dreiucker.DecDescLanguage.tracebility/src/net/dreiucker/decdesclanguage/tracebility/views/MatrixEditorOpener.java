@@ -55,6 +55,7 @@ public class MatrixEditorOpener implements MouseListener {
 				}
 			}
 			else if (row > 0 && column == 0) {
+				// a decision reference
 				String decision = table.getCellByPosition(column, row).getDataValue().toString();
 				
 				if (DEBUG) {
@@ -62,6 +63,16 @@ public class MatrixEditorOpener implements MouseListener {
 				}
 				
 				URI uri = dataProvider.getDecisionUri(decision);
+				if (uri != null) {
+					CustomDdlActivator.getInstance().openDdlEditor(uri);
+				}
+			}
+			else if (row > 0 && column >= 0) {
+				row = table.getRowIndexByPosition(row);
+				column = table.getColumnIndexByPosition(column);
+				// reference to a "reference of a requirement"
+				URI uri = dataProvider.getURI(column, row);
+				
 				if (uri != null) {
 					CustomDdlActivator.getInstance().openDdlEditor(uri);
 				}
