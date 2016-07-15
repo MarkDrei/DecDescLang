@@ -93,7 +93,7 @@ public class DataCollector extends Job {
 			public boolean shallContinue() {
 				return !monitor.isCanceled();
 			}
-			
+
 			@Override
 			public void handleEmfElement(IResource iRes, EObject content, String uriString) {
 				if (content instanceof ReqIF) {
@@ -106,6 +106,7 @@ public class DataCollector extends Job {
 								System.out.println("MDD Found requirement: " + id);
 							}
 							result.add(id);
+							dataProvider.requirementsToFiles.put(id, iRes.getLocationURI());
 						}
 					}
 				}

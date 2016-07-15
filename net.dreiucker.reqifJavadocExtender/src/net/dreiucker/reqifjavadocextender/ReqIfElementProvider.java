@@ -7,31 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.rmf.reqif10.ReqIF;
 import org.eclipse.rmf.reqif10.ReqIFContent;
-import org.eclipse.rmf.reqif10.SpecHierarchy;
 import org.eclipse.rmf.reqif10.SpecObject;
-import org.eclipse.rmf.reqif10.Specification;
-import org.eclipse.rmf.reqif10.pror.editor.presentation.Reqif10Editor;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.IDE;
-import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.xtext.util.Pair;
-import org.eclipse.xtext.util.Tuples;
 
 import net.dreiucker.decdesclanguage.reqif.ReqifModelHelper;
 import net.dreiucker.decdesclanguage.reqif.ReqifModelHelper2;
+import net.dreiucker.decdesclanguage.reqif.ui.ReqifUiHelper;
 import net.dreiucker.emfVisitor.AEmfElementHandler;
 import net.dreiucker.emfVisitor.EmfVisitor;
 import net.dreiucker.javadocextender.extensionpoint.IElementChangeListener;
@@ -41,16 +25,13 @@ public class ReqIfElementProvider implements IElementProvider {
 
 	private final String VALID_TAG = "requirement";
 	
-	private final static String EDITOR_ID = "org.eclipse.rmf.reqif10.presentation.Reqif10EditorID";
-
 	private final static String REQIF_FILE_EXTENSION = ".reqif";
 	
 	private List<IElementChangeListener> listeners = new ArrayList<>();
 	
 	private Map<String, java.net.URI> requirementToFile = new HashMap<>();
+
 	
-
-
 	@Override
 	public String getTag() {
 		return VALID_TAG;
@@ -103,46 +84,6 @@ public class ReqIfElementProvider implements IElementProvider {
 	public void openEditor(String reqId) {
 		java.net.URI uri = requirementToFile.get(reqId);
 		
-		// identify the editor
-		IEditorPart editor = null;
-		IFile[] files = getWorkspaceRoot().findFilesForLocationURI(uri);
-		if (files != null && files.length > 0) {
-			IEditorInput editorInput = new FileEditorInput(files[0]);
-			IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			try {
-				editor = IDE.openEditor(activePage, editorInput, EDITOR_ID);
-			} catch (PartInitException e) {
-				System.err.println("Failed to open editor " + EDITOR_ID + " on file " + files[0].getFullPath());
-				e.printStackTrace();
-			}
-		}
-		
-		// now move to the correct selection
-		if (editor != null) {
-			Reqif10Editor reqifEditor = (Reqif10Editor) editor.getAdapter(Reqif10Editor.class);
-			if (reqifEditor != null) {
-				Pair<Specification, SpecHierarchy> spec = findSpecification(reqId, reqifEditor.getReqif());
-				reqifEditor.setSelection(new StructuredSelection(spec.getSecond()));
-				reqifEditor.openSpecEditor(spec.getFirst());
-			}
-		}
-	}
-	
-	private Pair<Specification, SpecHierarchy> findSpecification(String reqId, ReqIF reqif) {
-		String idForNameAttribute = ReqifModelHelper.findIdForNameAttribute(reqif.getCoreContent());
-		EList<Specification> specifications = reqif.getCoreContent().getSpecifications();
-		for (Specification spec : specifications) {
-			SpecHierarchy hierarchy = ReqifModelHelper2.findSpecHierarchyByNameID(
-					reqId, idForNameAttribute, spec.getChildren());
-			if (hierarchy != null) {
-				return Tuples.create(spec, hierarchy);
-			}
-		}
-		
-		return null;
-	}
-
-	private IWorkspaceRoot getWorkspaceRoot() {
-		return ResourcesPlugin.getWorkspace().getRoot();
+		new ReqifUiHelper().openReqifEditor(uri, reqId);
 	}
 }

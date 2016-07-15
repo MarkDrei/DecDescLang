@@ -23,6 +23,9 @@ public class BodyDataProvider implements IDataProvider {
 	// Buffers the relation from "ddl decision" to the file path it is contained in
 	Map<String, URI> decisionsToFiles = new HashMap<>();
 	
+	// Buffers the relation from reqif requirements to the file path it is contained in
+	Map<String, java.net.URI> requirementsToFiles = new HashMap<>();
+	
 	public BodyDataProvider() {
 	}
 	
@@ -61,6 +64,10 @@ public class BodyDataProvider implements IDataProvider {
 
 	public URI getDecisionUri(String decision) {
 		return decisionsToFiles.get(decision);
+	}
+	
+	public java.net.URI getRequirementsUri(String requirement) {
+		return requirementsToFiles.get(requirement);
 	}
 	
 	

@@ -6,11 +6,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 
+import net.dreiucker.decdesclanguage.reqif.ui.ReqifUiHelper;
 import net.dreiucker.decdesclanguage.tracebility.data.BodyDataProvider;
 import net.dreiucker.ui.CustomDdlActivator;
 
 public class MatrixEditorOpener implements MouseListener {
 
+	private static final boolean DEBUG = false;
 	private BodyDataProvider dataProvider;
 	private NatTable table;
 	
@@ -41,12 +43,24 @@ public class MatrixEditorOpener implements MouseListener {
 			int column = table.getColumnPositionByX(e.x);
 			
 			if (row == 0 && column > 0) {
-				Object requirement = table.getCellByPosition(column, row).getDataValue().toString();
-//				System.out.println("Navigage to requirement " + requirement);
+				String requirement = table.getCellByPosition(column, row).getDataValue().toString();
+				
+				if (DEBUG) {
+					System.out.println("Navigage to requirement " + requirement);
+				}
+				
+				java.net.URI uri = dataProvider.getRequirementsUri(requirement);
+				if (uri != null) {
+					new ReqifUiHelper().openReqifEditor(uri, requirement);
+				}
 			}
 			else if (row > 0 && column == 0) {
 				String decision = table.getCellByPosition(column, row).getDataValue().toString();
-//				System.out.println("Navigage to decision " + decision);
+				
+				if (DEBUG) {
+					System.out.println("Navigage to decision " + decision);
+				}
+				
 				URI uri = dataProvider.getDecisionUri(decision);
 				if (uri != null) {
 					CustomDdlActivator.getInstance().openDdlEditor(uri);
