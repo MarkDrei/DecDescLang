@@ -19,7 +19,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Decision/assumptions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Decision/constraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Decision/owner"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Decision/ref"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Decision/requirement"/>
     </genClasses>
     <genClasses ecoreClass="DecDescLanguage.ecore#//Status">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Status/DECIDED"/>
@@ -79,6 +79,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Person/fullname"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Person/email"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Person/role"/>
+    </genClasses>
+    <genClasses ecoreClass="DecDescLanguage.ecore#//AbstractRequirements">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AbstractRequirements/requirements"/>
+    </genClasses>
+    <genClasses ecoreClass="DecDescLanguage.ecore#//AbstractRequirement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AbstractRequirement/requirement"/>
+    </genClasses>
+    <genClasses ecoreClass="DecDescLanguage.ecore#//Requirement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Requirement/ref"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

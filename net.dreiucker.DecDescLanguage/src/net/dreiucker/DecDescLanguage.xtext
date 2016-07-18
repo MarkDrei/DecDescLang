@@ -58,11 +58,9 @@ Decision:
 			('Owner:' owner = AbstractPerson)?
 		)
 		
-		('Reference:' ref = [req::SpecObject|FQN])?
+		('Requirements:' requirement = AbstractRequirements)?
 		
 	'}';
-
-FQN returns ecore::EString: ID ("."  ID)*;
 
 // This is an enum
 Status: 
@@ -149,7 +147,17 @@ Person:
 
 
 
+////////////////////////////////////////////////////////////////////////////
+// Requirements
+////////////////////////////////////////////////////////////////////////////
 
+AbstractRequirements: requirements += AbstractRequirement | '{'
+		(requirements += AbstractRequirement)+
+	'}'
+;
 
+AbstractRequirement: requirement = Requirement;
 
+Requirement: (ref = [req::SpecObject|FQN]);
 
+FQN returns ecore::EString: ID ("."  ID)*;

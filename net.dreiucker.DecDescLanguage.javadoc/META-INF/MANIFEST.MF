@@ -9,13 +9,13 @@ Require-Bundle: org.eclipse.ui,
  net.dreiucker.JavadocExtender,
  org.eclipse.xtext,
  org.eclipse.xtext.builder,
- org.eclipse.xtext.ui,
  org.apache.log4j,
  org.eclipse.xtext.ui.shared,
  net.dreiucker.DecDescLanguage,
  org.eclipse.ui.workbench,
  org.eclipse.ui.ide;bundle-version="3.11.0",
- net.dreiucker.DecDescLanguage.ui
+ net.dreiucker.DecDescLanguage.ui,
+ net.dreiucker.emfVisitor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: net.dreiucker.decdesclanguage.javadoc

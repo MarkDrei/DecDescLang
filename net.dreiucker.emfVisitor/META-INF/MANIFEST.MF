@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMF Element Visitor
+Bundle-SymbolicName: net.dreiucker.emfVisitor
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.core.resources;bundle-version="3.10.1",
+ org.eclipse.core.runtime;bundle-version="3.11.1",
+ org.eclipse.emf.ecore
+Export-Package: net.dreiucker.emfVisitor
