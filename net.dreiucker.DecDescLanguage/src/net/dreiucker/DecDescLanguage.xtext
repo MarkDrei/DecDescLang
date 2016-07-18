@@ -16,7 +16,7 @@ Model:
 ;
 
 Definition:
-	(SolutionsDefinitionBlock | Assumptions | Constraints | Person | Decision)
+	(SolutionsDefinitionBlock | Assumptions | Constraints | Person | Decision | Consequences)
 ;
 
 
@@ -113,9 +113,11 @@ AbstractSolutions: AbstractSolution | '{'
 		(solutions += AbstractSolution)+
 	'}';
 
-AbstractSolution: solution = [Solution] | Solution;
+AbstractSolution: solution = [Solution] | Solution 
+		('extends' parent = AbstractSolution)?
+;
 
-Solution: (name = ID ':')? solutionText = NIXSTRING;
+Solution: (name = ID ':')? solutionText = NIXSTRING ('causes' consequences = AbstractConsequences)?;
 // nach Jansen: Description, Design Rules, Design Constraints, Consequences, List of pros, list of Cons
 
 SolutionDecision: solution = AbstractSolution (reason = Reasoning)?;
@@ -126,6 +128,21 @@ AlternativesBlock: (alternative = SolutionDecision) | ('{'
 		(alternatives += SolutionDecision)+
 	'}')
 ;
+
+////////////////////////////////////////////////////////////////////////////
+// Consequences
+////////////////////////////////////////////////////////////////////////////
+
+AbstractConsequences: AbstractConsequence | '{'
+		(consequences += AbstractConsequence)+
+	'}';
+
+AbstractConsequence: consequence = [Consequence] | Consequence;
+
+Consequence: (name = ID ':')? consequenceText = NIXSTRING;
+
+Consequences: 'Consequence' consequences = AbstractConsequences;
+
 
 ////////////////////////////////////////////////////////////////////////////
 // People

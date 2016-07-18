@@ -64,8 +64,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="solution" eType="#//Solution"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Solution" eSuperTypes="#//AbstractSolution">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//AbstractSolution"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="solutionText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consequences" eType="#//AbstractConsequences"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SolutionDecision">
     <eStructuralFeatures xsi:type="ecore:EReference" name="solution" eType="#//AbstractSolution"
@@ -81,6 +85,21 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="alternatives" upperBound="-1"
         eType="#//SolutionDecision" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractConsequences">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consequences" upperBound="-1"
+        eType="#//AbstractConsequence" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractConsequence" eSuperTypes="#//AbstractConsequences">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consequence" eType="#//Consequence"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Consequence" eSuperTypes="#//AbstractConsequence">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="consequenceText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Consequences" eSuperTypes="#//Definition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consequences" eType="#//AbstractConsequences"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractPerson">
     <eStructuralFeatures xsi:type="ecore:EReference" name="person" eType="#//Person"/>

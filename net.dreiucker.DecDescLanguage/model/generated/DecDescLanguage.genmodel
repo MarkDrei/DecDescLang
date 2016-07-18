@@ -57,8 +57,10 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AbstractSolution/solution"/>
     </genClasses>
     <genClasses ecoreClass="DecDescLanguage.ecore#//Solution">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Solution/parent"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Solution/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Solution/solutionText"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Solution/consequences"/>
     </genClasses>
     <genClasses ecoreClass="DecDescLanguage.ecore#//SolutionDecision">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//SolutionDecision/solution"/>
@@ -70,6 +72,19 @@
     <genClasses ecoreClass="DecDescLanguage.ecore#//AlternativesBlock">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AlternativesBlock/alternative"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AlternativesBlock/alternatives"/>
+    </genClasses>
+    <genClasses ecoreClass="DecDescLanguage.ecore#//AbstractConsequences">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AbstractConsequences/consequences"/>
+    </genClasses>
+    <genClasses ecoreClass="DecDescLanguage.ecore#//AbstractConsequence">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AbstractConsequence/consequence"/>
+    </genClasses>
+    <genClasses ecoreClass="DecDescLanguage.ecore#//Consequence">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Consequence/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Consequence/consequenceText"/>
+    </genClasses>
+    <genClasses ecoreClass="DecDescLanguage.ecore#//Consequences">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Consequences/consequences"/>
     </genClasses>
     <genClasses ecoreClass="DecDescLanguage.ecore#//AbstractPerson">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AbstractPerson/person"/>
