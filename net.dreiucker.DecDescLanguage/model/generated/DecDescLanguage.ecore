@@ -36,7 +36,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="assumptions" upperBound="-1"
         eType="#//AbstractAssumption" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractAssumption" eSuperTypes="#//AbstractAssumptions">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractAssumption">
     <eStructuralFeatures xsi:type="ecore:EReference" name="assumption" eType="#//Assumption"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Assumption" eSuperTypes="#//AbstractAssumption">

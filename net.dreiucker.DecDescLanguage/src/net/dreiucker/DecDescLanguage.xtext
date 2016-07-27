@@ -78,7 +78,7 @@ Assumptions:
 	('Assumption') AbstractAssumptions
 ;
 
-AbstractAssumptions: AbstractAssumption | '{'
+AbstractAssumptions: assumptions += AbstractAssumption | '{'
 		(assumptions += AbstractAssumption)+
 	'}';
 
