@@ -8,7 +8,6 @@ import org.eclipse.xtext.junit4.util.ParseHelper
 import net.dreiucker.decDescLanguage.Model
 import org.junit.Test
 import static org.junit.Assert.*
-import net.dreiucker.decDescLanguage.Assumption
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import net.dreiucker.decDescLanguage.DecDescLanguagePackage
 import org.eclipse.xtext.diagnostics.Diagnostic
@@ -16,7 +15,6 @@ import net.dreiucker.decDescLanguage.AbstractAssumptions
 
 @RunWith(XtextRunner)
 @InjectWith(DecDescLanguageInjectorProvider)
-
 class AssumptionTest {
 	
 	@Inject extension ParseHelper<Model>;
@@ -39,7 +37,9 @@ class AssumptionTest {
 			
 		assertNotNull(result)
 		result.assertNoErrors
-		assertEquals(1, result.definitions.filter(AbstractAssumptions).size)
+		val abstractAssumptions = result.definitions.filter(AbstractAssumptions)
+		assertEquals(1, abstractAssumptions.size)
+		assertEquals(1, abstractAssumptions.get(0).assumptions.size)
 	}
 	
 	@Test
@@ -48,8 +48,9 @@ class AssumptionTest {
 			Assumption name : "This is some text"''');
 			
 		assertNotNull(result)
-		result.assertNoErrors
-		assertEquals(1, result.definitions.filter(AbstractAssumptions).size)
+		val abstractAssumptions = result.definitions.filter(AbstractAssumptions)
+		assertEquals(1, abstractAssumptions.size)
+		assertEquals(1, abstractAssumptions.get(0).assumptions.size)
 	}
 	
 	@Test
@@ -63,8 +64,46 @@ class AssumptionTest {
 			
 		assertNotNull(result)
 		result.assertNoErrors
-		assertEquals(1, result.definitions.filter(AbstractAssumptions).size)
-		
+		val abstractAssumptions = result.definitions.filter(AbstractAssumptions)
+		assertEquals(1, abstractAssumptions.size)
+		assertEquals(2, abstractAssumptions.get(0).assumptions.size)
+	}
+	
+	@Test
+	def void testMultipleMultipleAssumption() {
+		val result = parse('''
+			Assumption {
+					"first assumption"
+					someName : "second"
+				}
+			Assumption {
+				"just another one"
+			}
+		''');
+			
+		assertNotNull(result)
+		result.assertNoErrors
+		val abstractAssumptions = result.definitions.filter(AbstractAssumptions)
+		assertEquals(2, abstractAssumptions.size)
+		assertEquals(2, abstractAssumptions.get(0).assumptions.size)
+		assertEquals(1, abstractAssumptions.get(1).assumptions.size)
+	}
+	
+	@Test
+	def void testReuse() {
+		val result = parse('''
+			Assumption  someName : "foo"
+			Assumption {
+				someName
+			}
+		''');
+			
+		assertNotNull(result)
+		result.assertNoErrors
+		val abstractAssumptions = result.definitions.filter(AbstractAssumptions)
+		assertEquals(2, abstractAssumptions.size)
+		assertEquals(1, abstractAssumptions.get(0).assumptions.size)
+		assertEquals(1, abstractAssumptions.get(1).assumptions.size)
 	}
 	
 }

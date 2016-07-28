@@ -93,7 +93,7 @@ Assumption: (name = ID ':')? assumptionText = NIXSTRING;
 Constraints: 
 	('Constraint') AbstractConstraints;
 	
-AbstractConstraints: AbstractConstraint | '{'
+AbstractConstraints: constraints += AbstractConstraint | '{'
 		(constraints += AbstractConstraint)+
 	'}'
 ;

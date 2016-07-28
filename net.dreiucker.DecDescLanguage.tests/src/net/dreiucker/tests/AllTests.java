@@ -6,6 +6,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	AssumptionTest.class,
+	ConstraintsTest.class,
 	DecDescLanguageParsingTest.class
 })
 public class AllTests {
