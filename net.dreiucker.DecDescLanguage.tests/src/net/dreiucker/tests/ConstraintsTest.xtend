@@ -34,13 +34,16 @@ class ConstraintsTest {
 	@Test
 	def void testConstraint() {
 		val result = parse('''
-			Constraint "text"
+			Constraint name: "text"
 		''')
 		assertNotNull(result);
 		result.assertNoErrors
 		val aContraints = result.definitions.filter(AbstractConstraints)
 		assertEquals(1, aContraints.size)
 		assertEquals(1, aContraints.get(0).constraints.size)
+		val c = aContraints.get(0).constraints.get(0).constraint
+		assertNotNull(c)
+		assertEquals("\"text\"", c.constraintText)
 		
 	}
 	
