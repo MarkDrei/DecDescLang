@@ -78,11 +78,11 @@ Assumptions:
 	('Assumption') AbstractAssumptions
 ;
 
-AbstractAssumptions: AbstractAssumption | '{'
+AbstractAssumptions: assumptions += AbstractAssumption | '{'
 		(assumptions += AbstractAssumption)+
 	'}';
 
-AbstractAssumption: assumption = [Assumption] | Assumption; 
+AbstractAssumption: assumptionRef = [Assumption] | assumption = Assumption; 
 
 Assumption: (name = ID ':')? assumptionText = NIXSTRING;
 
@@ -93,12 +93,12 @@ Assumption: (name = ID ':')? assumptionText = NIXSTRING;
 Constraints: 
 	('Constraint') AbstractConstraints;
 	
-AbstractConstraints: AbstractConstraint | '{'
+AbstractConstraints: constraints += AbstractConstraint | '{'
 		(constraints += AbstractConstraint)+
 	'}'
 ;
 
-AbstractConstraint: constraint = [Constraint] | Constraint;
+AbstractConstraint: constraintRef = [Constraint] | constraint = Constraint;
 
 Constraint: (name = ID ':')? constraintText = NIXSTRING;
 
@@ -109,11 +109,11 @@ Constraint: (name = ID ':')? constraintText = NIXSTRING;
 SolutionsDefinitionBlock:
 	('Solution') AbstractSolutions;
 	
-AbstractSolutions: AbstractSolution | '{' 
+AbstractSolutions: solutions += AbstractSolution | '{' 
 		(solutions += AbstractSolution)+
 	'}';
 
-AbstractSolution: solution = [Solution] | Solution 
+AbstractSolution: solutionRef = [Solution] | solution = Solution 
 		('extends' parent = AbstractSolution)?
 ;
 
@@ -133,22 +133,22 @@ AlternativesBlock: (alternative = SolutionDecision) | ('{'
 // Consequences
 ////////////////////////////////////////////////////////////////////////////
 
-AbstractConsequences: AbstractConsequence | '{'
+AbstractConsequences: consequences += AbstractConsequence | '{'
 		(consequences += AbstractConsequence)+
 	'}';
 
-AbstractConsequence: consequence = [Consequence] | Consequence;
+AbstractConsequence: consequenceRef = [Consequence] | consequence = Consequence;
 
 Consequence: (name = ID ':')? consequenceText = NIXSTRING;
 
-Consequences: 'Consequence' consequences = AbstractConsequences;
+Consequences: 'Consequence' AbstractConsequences;
 
 
 ////////////////////////////////////////////////////////////////////////////
 // People
 ////////////////////////////////////////////////////////////////////////////
 
-AbstractPerson: person = [Person] | Person;
+AbstractPerson: personRef = [Person] | person = Person;
 
 Person:
 	'Person' name=ID '{'
