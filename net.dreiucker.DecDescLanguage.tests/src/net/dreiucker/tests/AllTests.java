@@ -8,8 +8,9 @@ import org.junit.runners.Suite;
 	AssumptionTest.class,
 	ConsequencesTest.class,
 	ConstraintsTest.class,
-	SolutionTest.class,
-	DecDescLanguageParsingTest.class
+	DecDescLanguageParsingTest.class,
+	PersonsTest.class,
+	SolutionTest.class
 })
 public class AllTests {
 

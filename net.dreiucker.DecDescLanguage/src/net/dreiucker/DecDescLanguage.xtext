@@ -148,7 +148,7 @@ Consequences: 'Consequence' AbstractConsequences;
 // People
 ////////////////////////////////////////////////////////////////////////////
 
-AbstractPerson: person = [Person] | Person;
+AbstractPerson: personRef = [Person] | person = Person;
 
 Person:
 	'Person' name=ID '{'
