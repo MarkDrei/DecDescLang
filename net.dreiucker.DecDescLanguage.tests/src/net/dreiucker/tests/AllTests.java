@@ -9,6 +9,7 @@ import org.junit.runners.Suite;
 	ConsequencesTest.class,
 	ConstraintsTest.class,
 	DecDescLanguageParsingTest.class,
+	DecisionTest.class,
 	PersonsTest.class,
 	SolutionTest.class
 })
