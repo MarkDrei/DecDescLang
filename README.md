@@ -72,5 +72,4 @@ The provided plug-ins
    
 License
 ========
-TBD
-
+See LICENCE.md
