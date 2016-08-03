@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="net.dreiucker.DecDescLanguage.javadocFeature"
+      label="Javadoc Extension for DDL"
+      version="1.0.0.qualifier">
+
+   <description url="https://github.com/MarkDrei/DecDescLang">
+      Provides extensions to the javadoc implementation to reference both decisions (from DDL) and requirements (from RMF / ProR).
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import feature="net.dreiucker.DecDescLanguageFeature" version="1.0.0.qualifier"/>
+   </requires>
+
+   <plugin
+         id="net.dreiucker.DecDescLanguage.javadoc"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.dreiucker.JavadocExtender"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.dreiucker.reqifJavadocExtender"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
