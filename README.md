@@ -25,41 +25,48 @@ The required plug-ins can be seen in the MANIFEST.MF files; here a high level ov
 
 The provided plug-ins
 ---------------------
-- net.dreiucker.DecDescLanguage
+- `net.dreiucker.DecDescLanguage`
 
    The definition of the Decision Description Language
    
-- net.dreiucker.DecDescLanguage.ide   
-- net.dreiucker.DecDescLanguage.tests
-- net.dreiucker.DecDescLanguage.ui
-- net.dreiucker.DecDescLanguage.ui.tests
+- `net.dreiucker.DecDescLanguage.ide` 
+- `net.dreiucker.DecDescLanguage.tests`
+- `net.dreiucker.DecDescLanguage.ui`
+- `net.dreiucker.DecDescLanguage.ui.tests`
 
    Definitions of the UI (aka the Eclipse IDE) behavior for the DDL editor.
    Structure follows the suggested structure for Xtext projects.
    
-- net.dreiucker.DecDescLanguage.ReqIf
-- net.dreiucker.DecDescLanguage.ReqIf.ui
+- `net.dreiucker.DecDescLanguage.ReqIf`
+- `net.dreiucker.DecDescLanguage.ReqIf.ui`
 
    This is the connection between DDL and the requirements documented in RMF / ProR.
 
   
-- net.dreiucker.DecDescLanguage.tracebility
+- `net.dreiucker.DecDescLanguage.tracebility`
 
    Provides a new view called "Tracebility Matrix" which visualizes the relations between requirements and design decisions.
    
-- net.dreiucker.emfVisitor
+- `net.dreiucker.emfVisitor`
    
    Helper package to avoid code duplication. 
    Provides functionality that allows to traverse EMF resources inside the Eclipse workspace
    
-- net.dreiucker.DecDescLanguage.javadoc
+- `net.dreiucker.DecDescLanguage.javadoc`
 
    Extension for javadoc comments which allows to reference DDL design decisions.
 
-- net.dreiucker.reqifJavadocExtender
+- `net.dreiucker.reqifJavadocExtender`
 
    Extension for javadoc comments which allows to reference requirements in RMF format.
-
+   
+- `net.dreiucker.DecDescLanguage.javadocFeature`
+- `net.dreiucker.DecDescLanguage.tracebilityFeature`
+- `net.dreiucker.DecDescLanguageFeature`
+- `net.dreiucker.DecDescLanguage.UpdateSite`
+   
+   Definition of the features which can directly be added to an eclipse installation and the
+   update site, which is used to install and update these features.
 
    
    
