@@ -4,9 +4,7 @@ Bundle-Name: ReqIf Referencing UI
 Bundle-SymbolicName: net.dreiucker.DecDescLanguage.ReqIf.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: net.dreiucker.decdesclanguage.reqif.ui.Activator
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- net.dreiucker.DecDescLanguage.ReqIf,
+Require-Bundle: net.dreiucker.DecDescLanguage.ReqIf,
  org.eclipse.xtext.ui,
  org.eclipse.xtext.ui.shared,
  org.eclipse.rmf.reqif10.pror.editor
