@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/net.dreiucker.DecDescLanguageFeature_1.0.0.201608031116.jar" id="net.dreiucker.DecDescLanguageFeature" version="1.0.0.201608031116">
+   <feature url="features/net.dreiucker.DecDescLanguage.javadocFeature_1.0.0.jar" id="net.dreiucker.DecDescLanguage.javadocFeature" version="1.0.0">
       <category name="net.dreiucker.DecDescLanguage"/>
    </feature>
-   <feature url="features/net.dreiucker.DecDescLanguage.tracebilityFeature_1.0.0.201608031116.jar" id="net.dreiucker.DecDescLanguage.tracebilityFeature" version="1.0.0.201608031116">
+   <feature url="features/net.dreiucker.DecDescLanguage.tracebilityFeature_1.0.0.jar" id="net.dreiucker.DecDescLanguage.tracebilityFeature" version="1.0.0">
       <category name="net.dreiucker.DecDescLanguage"/>
    </feature>
-   <feature url="features/net.dreiucker.DecDescLanguage.javadocFeature_1.0.0.201608031116.jar" id="net.dreiucker.DecDescLanguage.javadocFeature" version="1.0.0.201608031116">
+   <feature url="features/net.dreiucker.DecDescLanguageFeature_1.0.0.jar" id="net.dreiucker.DecDescLanguageFeature" version="1.0.0">
       <category name="net.dreiucker.DecDescLanguage"/>
    </feature>
-   <category-def name="net.dreiucker.DecDescLanguage" label="Decision Description Language"/>
+   <category-def name="net.dreiucker.DecDescLanguage" label="Decision Description Language">
+      <description>
+         The Decision Description Language provides GUI and modeling support for documenting decisions and referencing requirements.
+      </description>
+   </category-def>
 </site>
