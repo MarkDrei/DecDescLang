@@ -2,7 +2,7 @@
 <feature
       id="net.dreiucker.DecDescLanguage.tracebilityFeature"
       label="Tracebility Matrix for DDL"
-      version="1.0.0.qualifier">
+      version="1.0.0">
 
    <description url="https://github.com/MarkDrei/DecDescLang">
       The Tracebility Matrix view which supports the Decision Description Language.
@@ -10,11 +10,11 @@ This view provides a matrix which maps the decisions to the requirements that ar
    </description>
 
    <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
+      [Enter Copyright Description for net.dreiucker.DecDescLangugage.tracebilityFeature here.]
    </copyright>
 
    <license url="http://www.example.com/license">
-      [Enter License Description here.]
+      [Enter License Description for net.dreiucker.DecDescLangugage.tracebilityFeature here.]
    </license>
 
    <requires>
