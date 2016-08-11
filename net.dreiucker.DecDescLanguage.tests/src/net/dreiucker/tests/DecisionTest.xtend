@@ -168,4 +168,88 @@ class DecisionTest {
 		assertNull(dec.solution.solution.solution.name)
 	}
 	
+	@Test
+	def void testDecisionReferenceSingle() {
+			val result = parse('''
+		Decision dec01 {
+			Issue: "issue"
+			Status: decided
+			Solution: "solText" reasoning "good"
+		}
+		
+		Decision dec02 {
+			Issue: "issue"
+			Status: decided
+			Solution: "solText" reasoning "good"
+			Related: dec01
+		}
+		''');
+		assertNotNull(result);
+		result.assertNoErrors
+		assertEquals(2, result.definitions.size);
+		val dec = result.definitions.filter(Decision).get(0)
+		assertEquals("\"issue\"", dec.issue)
+		assertNotNull(dec.status.DECIDED)
+		assertNull(dec.status.APPROVED)
+		assertNull(dec.status.DECLINED)
+		assertNull(dec.status.PENDING)
+		assertEquals("\"solText\"", dec.solution.solution.solution.solutionText)
+		assertNull(dec.solution.solution.solution.name)
+		assertNull(dec.relDecisions)
+		
+		val dec2 = result.definitions.filter(Decision).get(1)
+		assertEquals("\"issue\"", dec2.issue)
+		assertNotNull(dec2.status.DECIDED)
+		assertNull(dec2.status.APPROVED)
+		assertNull(dec2.status.DECLINED)
+		assertNull(dec2.status.PENDING)
+		assertEquals("\"solText\"", dec2.solution.solution.solution.solutionText)
+		assertNull(dec2.solution.solution.solution.name)
+		assertNotNull(dec2.relDecisions)
+	}
+	@Test
+	def void testDecisionReferenceMultiple() {
+			val result = parse('''
+		Decision dec01 {
+			Issue: "issue"
+			Status: decided
+			Solution: "solText" reasoning "good"
+		}
+		Decision dec01b {
+			Issue: "issue"
+			Status: decided
+			Solution: "solText" reasoning "good"
+		}
+		
+		Decision dec02 {
+			Issue: "issue"
+			Status: decided
+			Solution: "solText" reasoning "good"
+			Related: {dec01 dec01b}
+		}
+		''');
+		assertNotNull(result);
+		result.assertNoErrors
+		assertEquals(3, result.definitions.size);
+		val dec = result.definitions.filter(Decision).get(0)
+		assertEquals("\"issue\"", dec.issue)
+		assertNotNull(dec.status.DECIDED)
+		assertNull(dec.status.APPROVED)
+		assertNull(dec.status.DECLINED)
+		assertNull(dec.status.PENDING)
+		assertEquals("\"solText\"", dec.solution.solution.solution.solutionText)
+		assertNull(dec.solution.solution.solution.name)
+		assertNull(dec.relDecisions)
+		
+		val dec2 = result.definitions.filter(Decision).get(2)
+		assertEquals("\"issue\"", dec2.issue)
+		assertNotNull(dec2.status.DECIDED)
+		assertNull(dec2.status.APPROVED)
+		assertNull(dec2.status.DECLINED)
+		assertNull(dec2.status.PENDING)
+		assertEquals("\"solText\"", dec2.solution.solution.solution.solutionText)
+		assertNull(dec2.solution.solution.solution.name)
+		assertNotNull(dec2.relDecisions)
+	}
+	
 }

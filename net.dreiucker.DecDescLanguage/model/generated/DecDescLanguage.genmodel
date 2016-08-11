@@ -19,6 +19,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Decision/assumptions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Decision/constraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Decision/owner"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Decision/relDecisions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//Decision/requirement"/>
     </genClasses>
     <genClasses ecoreClass="DecDescLanguage.ecore#//Status">
@@ -26,6 +27,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Status/APPROVED"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Status/PENDING"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Status/DECLINED"/>
+    </genClasses>
+    <genClasses ecoreClass="DecDescLanguage.ecore#//AbstractDecisionReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AbstractDecisionReference/singleDecision"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AbstractDecisionReference/decisionList"/>
+    </genClasses>
+    <genClasses ecoreClass="DecDescLanguage.ecore#//DecisionList">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//DecisionList/decisions"/>
     </genClasses>
     <genClasses ecoreClass="DecDescLanguage.ecore#//Assumptions"/>
     <genClasses ecoreClass="DecDescLanguage.ecore#//AbstractAssumptions">
@@ -89,7 +97,8 @@
     </genClasses>
     <genClasses ecoreClass="DecDescLanguage.ecore#//Consequences"/>
     <genClasses ecoreClass="DecDescLanguage.ecore#//AbstractPerson">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AbstractPerson/person"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AbstractPerson/personRef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DecDescLanguage.ecore#//AbstractPerson/person"/>
     </genClasses>
     <genClasses ecoreClass="DecDescLanguage.ecore#//Person">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DecDescLanguage.ecore#//Person/name"/>

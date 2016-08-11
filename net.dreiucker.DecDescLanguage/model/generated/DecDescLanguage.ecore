@@ -22,6 +22,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//AbstractPerson"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relDecisions" eType="#//AbstractDecisionReference"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="requirement" eType="#//AbstractRequirements"
         containment="true"/>
   </eClassifiers>
@@ -30,6 +32,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="APPROVED" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="PENDING" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="DECLINED" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractDecisionReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="singleDecision" eType="#//Decision"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="decisionList" eType="#//DecisionList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DecisionList">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="decisions" unique="false"
+        upperBound="-1" eType="#//Decision"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Assumptions" eSuperTypes="#//Definition"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractAssumptions" eSuperTypes="#//Assumptions">
@@ -107,9 +118,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Consequences" eSuperTypes="#//Definition"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractPerson">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="person" eType="#//Person"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="personRef" eType="#//Person"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="person" eType="#//Person"
+        containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Person" eSuperTypes="#//Definition #//AbstractPerson">
+  <eClassifiers xsi:type="ecore:EClass" name="Person" eSuperTypes="#//Definition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fullname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

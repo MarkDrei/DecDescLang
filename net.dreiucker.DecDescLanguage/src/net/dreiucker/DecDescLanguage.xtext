@@ -55,7 +55,9 @@ Decision:
 			// the decision
 			('Constraints:' constraints = AbstractConstraints)? &
 			// The person who is responsible for the decision
-			('Owner:' owner = AbstractPerson)?
+			('Owner:' owner = AbstractPerson)? &
+			// References to other related decisions
+			('Related:' relDecisions = AbstractDecisionReference)?
 		)
 		
 		('Requirements:' requirement = AbstractRequirements)?
@@ -68,6 +70,17 @@ Status:
 	APPROVED = 'approved' |
 	PENDING  = 'pending'  |
 	DECLINED = 'declined'
+;
+
+////////////////////////////////////////////////////////////////////////////
+// Decision Reference
+////////////////////////////////////////////////////////////////////////////
+
+AbstractDecisionReference: singleDecision = [Decision] | decisionList = DecisionList;
+
+DecisionList: '{'
+		(decisions += [Decision])+
+	'}'
 ;
 
 ////////////////////////////////////////////////////////////////////////////
