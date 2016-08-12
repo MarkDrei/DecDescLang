@@ -25,6 +25,20 @@ import net.dreiucker.javadocextender.extensionpoint.IElementProvider;
 import net.dreiucker.ui.CustomDdlActivator;
 
 public class DdlElementProvider implements IElementProvider, IXtextBuilderParticipant {
+	
+	/**
+	 * Holds additional data about about an decision
+	 */
+	private final class DecisionData {
+		
+		public DecisionData(URI fileLocation, String decisionDescription) {
+			this.fileLocation = fileLocation;
+			this.decisionDescription = decisionDescription;
+		}
+		
+		URI fileLocation;
+		String decisionDescription;
+	}
 
 	private final static boolean DEBUG = false;
 	
@@ -35,7 +49,7 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 	private ArrayList<IElementChangeListener> changeListeners;
 	
 	// Buffers the relation from "ddl decision" to the file path it is contained in
-	Map<String, URI> decisionsToFiles = new HashMap<>();
+	Map<String, DecisionData> decisionsToFiles = new HashMap<>();
 	
 	public DdlElementProvider() {
 		changeListeners = new ArrayList<>();
@@ -70,12 +84,17 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 					for (Definition def : definitions) {
 						definitionIndex++;
 						if (def instanceof Decision) {
-							String decisionName = ((Decision) def).getName();
+							Decision decision = (Decision) def;
+							String decisionName = decision.getName();
 							result.add(decisionName);
 							// create a URI string in the format
 							//   platform:/resource/TestDSL/src/example1/people.ddl#//@definitions.1
 							String definitionUri = uriString + "#//@definitions." + definitionIndex;
-							decisionsToFiles.put(decisionName, URI.createURI(definitionUri));
+							String decisionDescription = "Reference the decision <b>" + decisionName
+									+ "</b> on the issue <em>" + decision.getIssue() + "</em>";
+							
+							decisionsToFiles.put(decisionName,
+									new DecisionData(URI.createURI(definitionUri), decisionDescription));
 							if (DEBUG) {
 								System.out.println("  MDD found a decision: " + decisionName);
 							}
@@ -114,10 +133,21 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 	@Override
 	public void openEditor(String decisionName) {
 		// get the correct IFile
-		URI uri = decisionsToFiles.get(decisionName);
-		CustomDdlActivator.getInstance().openDdlEditor(uri);
+		DecisionData decisionData = decisionsToFiles.get(decisionName);
+		if (decisionData != null) {
+			URI uri = decisionData.fileLocation;
+			CustomDdlActivator.getInstance().openDdlEditor(uri);
+		}
 	}
 	
+	@Override
+	public String getElementDescription(String decisionName) {
+		DecisionData decisionData = decisionsToFiles.get(decisionName);
+		if (decisionData != null) {
+			return decisionData.decisionDescription;
+		}
+		return null;
+	}
 
 	
 }

@@ -23,13 +23,24 @@ import net.dreiucker.javadocextender.extensionpoint.IElementProvider;
 
 public class ReqIfElementProvider implements IElementProvider {
 
+	private final static class RequirementData {
+		
+		public RequirementData(java.net.URI fileLocation, String description) {
+			this.fileLocation = fileLocation;
+			this.description = description;
+		}
+		
+		java.net.URI fileLocation;
+		String description;
+	}
+	
 	private final String VALID_TAG = "requirement";
 	
 	private final static String REQIF_FILE_EXTENSION = ".reqif";
 	
 	private List<IElementChangeListener> listeners = new ArrayList<>();
 	
-	private Map<String, java.net.URI> requirementToFile = new HashMap<>();
+	private Map<String, RequirementData> requirementToFile = new HashMap<>();
 
 	
 	@Override
@@ -51,11 +62,19 @@ public class ReqIfElementProvider implements IElementProvider {
 				if (content instanceof ReqIF) {
 					ReqIFContent coreContent = ((ReqIF) content).getCoreContent();
 					String idForNameAttribute = ReqifModelHelper.findIdForNameAttribute(coreContent);
+					String idForDescriptionAttribute = ReqifModelHelper.findIdForDescriptionAttribute(coreContent);
 					for (SpecObject o : coreContent.getSpecObjects()) {
 						String id = ReqifModelHelper2.extractID(idForNameAttribute, o);
 						if (id != null) {
+							String description = ReqifModelHelper2.extractID(idForDescriptionAttribute, o);
+							// this text is shown when the user picks the proposal
+							description = "Insert reference to the requirement <b>" + id + "</b>: <em>" + description + "</em>";
+							
 							result.add(id);
-							requirementToFile.put(id, iRes.getLocationURI());
+							requirementToFile.put(id, 
+									new RequirementData(iRes.getLocationURI(),
+											
+											description));
 						}
 					}
 				}
@@ -82,8 +101,19 @@ public class ReqIfElementProvider implements IElementProvider {
 	
 	@Override
 	public void openEditor(String reqId) {
-		java.net.URI uri = requirementToFile.get(reqId);
-		
-		new ReqifUiHelper().openReqifEditor(uri, reqId);
+		RequirementData data = requirementToFile.get(reqId);
+		if (data != null) {
+			java.net.URI uri = data.fileLocation;
+			new ReqifUiHelper().openReqifEditor(uri, reqId);
+		}
+	}
+	
+	@Override
+	public String getElementDescription(String reqId) {
+		RequirementData data = requirementToFile.get(reqId);
+		if (data != null) {
+			return data.description;
+		}
+		return null;
 	}
 }
