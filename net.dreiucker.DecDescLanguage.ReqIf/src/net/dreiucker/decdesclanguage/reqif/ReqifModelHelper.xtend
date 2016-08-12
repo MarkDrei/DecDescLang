@@ -5,6 +5,7 @@ import org.eclipse.rmf.reqif10.ReqIFContent
 class ReqifModelHelper {
 	
 	static val SPEC_OBJECT_NAME_ID = "ID";
+	static val SPEC_OBJECT_DESC_ID = "Description";
 	static val REQUIREMENT_TYPE_LONG_NAME = "Requirement Type";
 	
 	/**
@@ -45,6 +46,11 @@ class ReqifModelHelper {
 		
 		specTypes.filter[longName == REQUIREMENT_TYPE_LONG_NAME]
 			.last?.specAttributes.filter[longName == SPEC_OBJECT_NAME_ID].last?.identifier;
+	}
+	
+	def static String findIdForDescriptionAttribute(ReqIFContent it) {
+		specTypes.filter[longName == REQUIREMENT_TYPE_LONG_NAME]
+			.last?.specAttributes.filter[longName == SPEC_OBJECT_DESC_ID].last?.identifier;
 	}
 	
 	
