@@ -73,7 +73,6 @@ public class ReqIfElementProvider implements IElementProvider {
 							result.add(id);
 							requirementToFile.put(id, 
 									new RequirementData(iRes.getLocationURI(),
-											
 											description));
 						}
 					}
