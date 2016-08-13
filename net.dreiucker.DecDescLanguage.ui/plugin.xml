@@ -427,5 +427,12 @@
           id="net.dreiucker.decdesclanguage.ui.wizards.SmallExample"
           name="Small DDL Example File">
     </wizard>
+    <wizard
+          category="net.dreiucker.DecDescLanguage.ui"
+          class="net.dreiucker.decdesclanguage.ui.wizards.ComplexExampleWizard"
+          icon="icons/sample.gif"
+          id="net.dreiucker.decdesclanguage.ui.wizards.ComplexExample"
+          name="Complex DDL Example File">
+    </wizard>
  </extension>
 </plugin>
