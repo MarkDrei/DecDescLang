@@ -413,6 +413,11 @@
           id="net.dreiucker.DecDescLanguage.ui"
           name="Decision Description Language">
     </category>
+    <category
+          id="net.dreiucker.DecDescLanguage.ui.examples"
+          name="Decision Description Language Examples"
+          parentCategory="org.eclipse.ui.Examples">
+    </category>
     <wizard
           category="net.dreiucker.DecDescLanguage.ui"
           class="net.dreiucker.decdesclanguage.ui.wizards.EmptyFileWizard"
@@ -421,14 +426,14 @@
           name="Empty DDL File">
     </wizard>
     <wizard
-          category="net.dreiucker.DecDescLanguage.ui"
+          category="org.eclipse.ui.Examples/net.dreiucker.DecDescLanguage.ui.examples"
           class="net.dreiucker.decdesclanguage.ui.wizards.SimpleExampleWizard"
           icon="icons/sample.gif"
           id="net.dreiucker.decdesclanguage.ui.wizards.SmallExample"
           name="Small DDL Example File">
     </wizard>
     <wizard
-          category="net.dreiucker.DecDescLanguage.ui"
+          category="org.eclipse.ui.Examples/net.dreiucker.DecDescLanguage.ui.examples"
           class="net.dreiucker.decdesclanguage.ui.wizards.ComplexExampleWizard"
           icon="icons/sample.gif"
           id="net.dreiucker.decdesclanguage.ui.wizards.ComplexExample"
