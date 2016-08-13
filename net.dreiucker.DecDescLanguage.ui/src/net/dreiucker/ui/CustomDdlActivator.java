@@ -5,7 +5,7 @@ import org.eclipse.xtext.ui.editor.LanguageSpecificURIEditorOpener;
 
 import com.google.inject.Inject;
 
-import net.dreiucker.DecDescLanguage.ui.internal.DecDescLanguageActivator;
+import net.dreiucker.decdesclanguage.ui.internal.DecDescLanguageActivator;
 
 /**
  *  

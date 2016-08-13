@@ -407,4 +407,25 @@
 			type="text">
 		</fileTypes>
 	</extension>
+ <extension
+       point="org.eclipse.ui.newWizards">
+    <category
+          id="net.dreiucker.DecDescLanguage.ui"
+          name="Decision Description Language">
+    </category>
+    <wizard
+          category="net.dreiucker.DecDescLanguage.ui"
+          class="net.dreiucker.decdesclanguage.ui.wizards.EmptyFileWizard"
+          icon="icons/sample.gif"
+          id="net.dreiucker.decdesclanguage.ui.wizards.EmptyFile"
+          name="Empty DDL File">
+    </wizard>
+    <wizard
+          category="net.dreiucker.DecDescLanguage.ui"
+          class="net.dreiucker.decdesclanguage.ui.wizards.SimpleExampleWizard"
+          icon="icons/sample.gif"
+          id="net.dreiucker.decdesclanguage.ui.wizards.SmallExample"
+          name="Small DDL Example File">
+    </wizard>
+ </extension>
 </plugin>
