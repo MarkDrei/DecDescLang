@@ -24,7 +24,13 @@ import net.dreiucker.javadocextender.extensionpoint.IElementChangeListener;
 import net.dreiucker.javadocextender.extensionpoint.IElementProvider;
 import net.dreiucker.ui.CustomDdlActivator;
 
-public class DdlElementProvider implements IElementProvider, IXtextBuilderParticipant {
+/**
+ * The actual implementation of the ddl element provider, this class
+ * must be singleton to correctly handle the registered listeners / the notifications
+ * @author Mark
+ *
+ */
+public class DdlElementProviderImplementation implements IElementProvider, IXtextBuilderParticipant {
 	
 	/**
 	 * Holds additional data about about an decision
@@ -51,7 +57,20 @@ public class DdlElementProvider implements IElementProvider, IXtextBuilderPartic
 	// Buffers the relation from "ddl decision" to the file path it is contained in
 	Map<String, DecisionData> decisionsToFiles = new HashMap<>();
 	
-	public DdlElementProvider() {
+	private static DdlElementProviderImplementation INSTANCE;
+	
+	public static DdlElementProviderImplementation getInstance() {
+		if (INSTANCE == null) {
+			synchronized (DdlElementProviderImplementation.class) {
+				if (INSTANCE == null) {
+					INSTANCE = new DdlElementProviderImplementation();
+				}
+			}
+		}
+		return INSTANCE;
+	}
+	
+	private DdlElementProviderImplementation() {
 		changeListeners = new ArrayList<>();
 	}
 
