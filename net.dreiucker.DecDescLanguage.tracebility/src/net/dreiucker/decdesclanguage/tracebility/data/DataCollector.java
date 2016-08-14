@@ -200,13 +200,13 @@ public class DataCollector extends Job {
 						System.err.println("Unable to find requirement \"" + id + "\" in the Tracebility Matrix");
 					} else {
 						if (DEBUG) {
-							System.out.println("Entering reference in cell " + dataProvider.decisionRowHeaders.size() + "/" + index);
+							System.out.println("Entering reference in cell " + (dataProvider.decisionRowHeaders.size() - 1) + "/" + index);
 						}
 						URI uri = URI.createURI(definitionUri);
 						
 						dataProvider.decisionRefersToReq.put(
 								Tuples.create(
-										Integer.valueOf(dataProvider.decisionRowHeaders.size()),
+										Integer.valueOf(dataProvider.decisionRowHeaders.size()) - 1,
 										Integer.valueOf(index)),
 								uri);
 					}

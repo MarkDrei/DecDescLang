@@ -6,7 +6,6 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultColumnHeaderDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultCornerDataProvider;
@@ -22,7 +21,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
@@ -45,7 +43,6 @@ public class TracebilityMatrix extends ViewPart {
 	private MatrixEditorOpener editorOpener;
 	
 	private Action action1;
-	private Action action2;
 
 	/**
 	 * The constructor.
@@ -152,20 +149,16 @@ public class TracebilityMatrix extends ViewPart {
 
 	private void fillLocalPullDown(IMenuManager manager) {
 		manager.add(action1);
-		manager.add(new Separator());
-		manager.add(action2);
 	}
 
 	private void fillContextMenu(IMenuManager manager) {
 		manager.add(action1);
-		manager.add(action2);
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 
 	private void fillLocalToolBar(IToolBarManager manager) {
 		manager.add(action1);
-		manager.add(action2);
 	}
 
 	private void makeActions() {
@@ -178,20 +171,6 @@ public class TracebilityMatrix extends ViewPart {
 		action1.setToolTipText("Refresh the tracebility matrix");
 
 		action1.setImageDescriptor(Activator.getImageDescriptor("icons/refresh.gif"));
-
-		action2 = new Action() {
-			public void run() {
-				showMessage("Action 2 executed");
-			}
-		};
-		action2.setText("Action 2");
-		action2.setToolTipText("Action 2 tooltip");
-		action2.setImageDescriptor(
-				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
-	}
-
-	private void showMessage(String message) {
-		MessageDialog.openInformation(viewComposite.getShell(), "Tracebility Matrix", message);
 	}
 
 	/**
