@@ -113,7 +113,7 @@ public class DataCollector extends Job {
 			}
 		});
 		
-		dataProvider.requirementColumnHeaders.addAll(result);
+		dataProvider.requirementRowHeaders.addAll(result);
 	}
 	
 	/**
@@ -153,7 +153,7 @@ public class DataCollector extends Job {
 							if (DEBUG) {
 								System.out.println("MDD Found decision: " + decision.getName());
 							}
-							dataProvider.decisionRowHeaders.add(((Decision) definition).getName());
+							dataProvider.decisionColumnHeaders.add(((Decision) definition).getName());
 							
 							String definitionUri = uriString + "#//@definitions." + definitionIndex;
 							dataProvider.decisionsToFiles.put(decision.getName(), URI.createURI(definitionUri));
@@ -194,27 +194,28 @@ public class DataCollector extends Job {
 			private void enterReferenceToMatrix(String id, String definitionUri) {
 				if (id != null) {
 					// Found a concrete reference, now add it to the data provider
-					int index = dataProvider.requirementColumnHeaders.indexOf(id);
+					int index = dataProvider.requirementRowHeaders.indexOf(id);
 					
 					if (index < 0) {
 						System.err.println("Unable to find requirement \"" + id + "\" in the Tracebility Matrix");
 					} else {
 						if (DEBUG) {
-							System.out.println("Entering reference in cell " + (dataProvider.decisionRowHeaders.size() - 1) + "/" + index);
+							System.out.println("Entering reference in cell " + (dataProvider.decisionColumnHeaders.size() - 1) + "/" + index);
 						}
 						URI uri = URI.createURI(definitionUri);
 						
-						dataProvider.decisionRefersToReq.put(
+						dataProvider.requirementReferedToByDec.put(
 								Tuples.create(
-										Integer.valueOf(dataProvider.decisionRowHeaders.size()) - 1,
-										Integer.valueOf(index)),
+										Integer.valueOf(index),
+										Integer.valueOf(dataProvider.decisionColumnHeaders.size()) - 1
+									),
 								uri);
 					}
 				}
 			}
 		});
 		
-		dataProvider.decisionRowHeaders.addAll(result);
+		dataProvider.decisionColumnHeaders.addAll(result);
 		
 	}
 

@@ -12,7 +12,7 @@ public class RowHeaderDataProvider implements IDataProvider {
 
 	@Override
 	public Object getDataValue(int columnIndex, int rowIndex) {
-		return bodyDataProvider.decisionRowHeaders.get(rowIndex);
+		return bodyDataProvider.requirementRowHeaders.get(rowIndex);
 	}
 
 	@Override

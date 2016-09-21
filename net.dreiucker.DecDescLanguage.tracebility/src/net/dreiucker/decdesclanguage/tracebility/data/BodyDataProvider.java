@@ -12,13 +12,13 @@ import org.eclipse.xtext.util.Tuples;
 
 public class BodyDataProvider implements IDataProvider {
 	
-	List<String> requirementColumnHeaders = new ArrayList<>();
-	List<String> decisionRowHeaders = new ArrayList<>();
+	List<String> requirementRowHeaders = new ArrayList<>();
+	List<String> decisionColumnHeaders = new ArrayList<>();
 	
 	/**
 	 * (Index of decision / index of Requirement) -> True if there is a usage of that requirement 
 	 */
-	Map<Pair<Integer, Integer>, URI> decisionRefersToReq = new HashMap<>();;
+	Map<Pair<Integer, Integer>, URI> requirementReferedToByDec = new HashMap<>();;
 	
 	// Buffers the relation from "ddl decision" to the file path it is contained in
 	Map<String, URI> decisionsToFiles = new HashMap<>();
@@ -31,26 +31,26 @@ public class BodyDataProvider implements IDataProvider {
 	
 	@Override
 	public int getColumnCount() {
-		return requirementColumnHeaders.size();
+		return decisionColumnHeaders.size();
 	}
 	
 	@Override
 	public int getRowCount() {
-		return decisionRowHeaders.size();
+		return requirementRowHeaders.size();
 	}
 	
 
 	@Override
 	public Object getDataValue(int columnIndex, int rowIndex) {
-		URI hasReference = decisionRefersToReq.get(Tuples.create(Integer.valueOf(rowIndex), Integer.valueOf(columnIndex)));
+		URI hasReference = requirementReferedToByDec.get(Tuples.create(Integer.valueOf(rowIndex), Integer.valueOf(columnIndex)));
 		if (hasReference != null) {
-			return "hasReference";
+			return "referenced";
 		}
 		return "";
 	}
 	
 	public URI getURI(int columnIndex, int rowIndex) {
-		return decisionRefersToReq.get(Tuples.create(Integer.valueOf(rowIndex), Integer.valueOf(columnIndex)));
+		return requirementReferedToByDec.get(Tuples.create(Integer.valueOf(rowIndex), Integer.valueOf(columnIndex)));
 	}
 
 	@Override
@@ -59,11 +59,11 @@ public class BodyDataProvider implements IDataProvider {
 	}
 
 	public String[] getColumnHeaders() {
-		return requirementColumnHeaders.toArray(new String[requirementColumnHeaders.size()]);
+		return decisionColumnHeaders.toArray(new String[decisionColumnHeaders.size()]);
 	}
 	
 	public String[] getRowHeaders() {
-		return decisionRowHeaders.toArray(new String[decisionRowHeaders.size()]);
+		return requirementRowHeaders.toArray(new String[requirementRowHeaders.size()]);
 	}
 
 	public URI getDecisionUri(String decision) {

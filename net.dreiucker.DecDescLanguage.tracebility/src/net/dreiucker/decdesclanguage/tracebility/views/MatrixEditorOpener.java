@@ -43,28 +43,28 @@ public class MatrixEditorOpener implements MouseListener {
 			int column = table.getColumnPositionByX(e.x);
 			
 			if (row == 0 && column > 0) {
-				String requirement = table.getCellByPosition(column, row).getDataValue().toString();
-				
-				if (DEBUG) {
-					System.out.println("Navigage to requirement " + requirement);
-				}
-				
-				java.net.URI uri = dataProvider.getRequirementsUri(requirement);
-				if (uri != null) {
-					new ReqifUiHelper().openReqifEditor(uri, requirement);
-				}
-			}
-			else if (row > 0 && column == 0) {
-				// a decision reference
 				String decision = table.getCellByPosition(column, row).getDataValue().toString();
 				
 				if (DEBUG) {
-					System.out.println("Navigage to decision " + decision);
+					System.out.println("Navigage to requirement " + decision);
 				}
 				
 				URI uri = dataProvider.getDecisionUri(decision);
 				if (uri != null) {
 					CustomDdlActivator.getInstance().openDdlEditor(uri);
+				}
+			}
+			else if (row > 0 && column == 0) {
+				// a decision reference
+				String requirement = table.getCellByPosition(column, row).getDataValue().toString();
+				
+				if (DEBUG) {
+					System.out.println("Navigage to decision " + requirement);
+				}
+				
+				java.net.URI uri = dataProvider.getRequirementsUri(requirement);
+				if (uri != null) {
+					new ReqifUiHelper().openReqifEditor(uri, requirement);
 				}
 			}
 			else if (row > 0 && column >= 0) {
