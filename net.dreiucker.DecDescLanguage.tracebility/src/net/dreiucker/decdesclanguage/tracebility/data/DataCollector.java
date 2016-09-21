@@ -147,8 +147,8 @@ public class DataCollector extends Job {
 				if (content instanceof Model) {
 					EList<Definition> definitions = ((Model) content).getDefinitions();
 					for (Definition definition : definitions) {
+						definitionIndex++;
 						if (definition instanceof Decision) {
-							definitionIndex++;
 							Decision decision = (Decision) definition;
 							if (DEBUG) {
 								System.out.println("MDD Found decision: " + decision.getName());
@@ -156,6 +156,11 @@ public class DataCollector extends Job {
 							dataProvider.decisionColumnHeaders.add(((Decision) definition).getName());
 							
 							String definitionUri = uriString + "#//@definitions." + definitionIndex;
+							
+							if (DEBUG) {
+								System.out.println("MDD URL to decision: " + uriString);
+							}
+							
 							dataProvider.decisionsToFiles.put(decision.getName(), URI.createURI(definitionUri));
 							
 							collectReferencedRequirements(decision, uriString);
